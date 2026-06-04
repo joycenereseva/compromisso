@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compromisso Joyce</title>
+<style>
+  :root {
+    --green: #1D9E75; --green-dark: #0F6E56; --green-light: #E1F5EE; --green-pale: #9FE1CB;
+    --bg-dark: #0F2A1E; --bg: #F7F6F2; --bg2: #EFEFEA; --border: #E0DED6; --border2: #D0CEC6;
+    --text: #1A1A18; --text2: #4A4A46; --text3: #888880; --radius: 14px; --radius-sm: 8px;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: var(--font); color: var(--text); min-height: 100vh; padding: 1rem; }
+  .app { max-width: 400px; margin: 0 auto; padding-bottom: 3rem; }
+  .header { background: var(--bg-dark); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
+  .date-line { font-size: 11px; color: var(--green-pale); letter-spacing: 0.05em; margin-bottom: 6px; }
+  .app-title { font-size: 18px; font-weight: 500; color: #fff; display: flex; align-items: center; justify-content: space-between; }
+  .level-badge { font-size: 11px; padding: 3px 10px; border-radius: 99px; background: var(--green); color: var(--green-light); font-weight: 500; }
+  .anchor-phrase { font-size: 12px; color: var(--green-pale); font-style: italic; line-height: 1.6; margin-top: 10px; padding: 10px 12px; background: rgba(29,158,117,0.15); border-radius: var(--radius-sm); border-left: 2px solid var(--green); }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+  .stat-card { background: #fff; border-radius: var(--radius-sm); padding: 12px; text-align: center; border: 0.5px solid var(--border); }
+  .stat-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
+  .stat-value { font-size: 24px; font-weight: 500; color: var(--text); }
+  .stat-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .conf-card { background: #fff; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1rem; border: 0.5px solid var(--border); }
+  .conf-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .conf-label { font-size: 12px; color: var(--text2); }
+  .conf-pct { font-size: 14px; font-weight: 500; color: var(--text); }
+  .bar-track { height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.6s ease; }
+  .conf-status { font-size: 11px; color: var(--text3); margin-top: 6px; }
+  .section { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 8px; overflow: hidden; }
+  .section-header { padding: 11px 1.25rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid var(--border); background: var(--bg2); }
+  .section-title { font-size: 13px; font-weight: 500; color: var(--text); }
+  .section-pts { font-size: 11px; color: var(--text3); }
+  .checklist { padding: 4px 1.25rem; }
+  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 0.5px solid var(--border); }
+  .check-item:last-child { border-bottom: none; }
+  .check-item input[type=checkbox] { width: 17px; height: 17px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+  .check-text { flex: 1; cursor: pointer; }
+  .check-label { font-size: 13px; color: var(--text); line-height: 1.4; display: block; }
+  .check-label.done { color: var(--text3); text-decoration: line-through; }
+  .check-meta { font-size: 11px; color: var(--green); margin-top: 2px; display: block; }
+  .daily-pts { font-size: 11px; color: var(--text3); flex-shrink: 0; margin-top: 3px; }
+  .tcc-block { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 8px; padding: 1rem 1.25rem; }
+  .tcc-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+  .temp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .temp-btn { padding: 8px 4px; border-radius: var(--radius-sm); border: 0.5px solid var(--border); font-size: 11px; text-align: center; cursor: pointer; background: transparent; color: var(--text2); line-height: 1.4; font-family: var(--font); }
+  .temp-btn.t-azul.sel { background: #E6F1FB; border-color: #378ADD; color: #0C447C; }
+  .temp-btn.t-verde.sel { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+  .temp-btn.t-amarela.sel { background: #FAEEDA; border-color: #EF9F27; color: #633806; }
+  .temp-btn.t-laranja.sel { background: #FAECE7; border-color: #D85A30; color: #4A1B0C; }
+  .temp-btn.t-vermelha.sel { background: #FCEBEB; border-color: #E24B4A; color: #501313; }
+  .evit-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .evit-btn { padding: 9px 8px; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; background: transparent; color: var(--text); text-align: center; font-family: var(--font); line-height: 1.3; }
+  .evit-btn.sel-nao { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+  .evit-btn.sel-sim { background: #FAECE7; border-color: #D85A30; color: #993C1D; }
+  .evit-input { width: 100%; font-size: 12px; padding: 8px 10px; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg2); color: var(--text); resize: none; min-height: 52px; display: none; font-family: var(--font); margin-top: 6px; }
+  .evit-input.show { display: block; }
+  .score-display { background: var(--bg-dark); border-radius: var(--radius); padding: 1.5rem 1.25rem; margin: 1rem 0; text-align: center; }
+  .score-big { font-size: 44px; font-weight: 500; color: #fff; }
+  .score-max { font-size: 18px; color: var(--green-pale); }
+  .score-msg { font-size: 13px; color: var(--green-pale); line-height: 1.7; margin-top: 12px; }
+  .victory-section { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); padding: 1rem 1.25rem; margin-bottom: 8px; }
+  .victory-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+  .victory-input { width: 100%; font-size: 13px; padding: 8px 10px; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg2); color: var(--text); resize: none; min-height: 60px; font-family: var(--font); }
+  .victory-save { margin-top: 8px; padding: 8px 16px; font-size: 12px; background: transparent; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); cursor: pointer; color: var(--text2); font-family: var(--font); }
+  .victory-save:hover { background: var(--bg2); }
+  .victory-list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .victory-item { font-size: 12px; color: var(--text2); padding: 7px 10px; background: var(--bg2); border-radius: var(--radius-sm); border-left: 2px solid var(--green); line-height: 1.4; }
+  .vic-date { font-size: 11px; color: var(--text3); display: block; margin-top: 2px; }
+  .crisis-btn { width: 100%; padding: 11px; background: transparent; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); font-size: 13px; color: var(--text2); cursor: pointer; margin-bottom: 8px; font-family: var(--font); }
+  .crisis-btn:hover { background: var(--bg2); }
+  .crisis-panel { background: var(--bg2); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1rem; border: 0.5px solid var(--border); display: none; }
+  .crisis-panel.open { display: block; }
+  .crisis-q { font-size: 13px; color: var(--text); margin-bottom: 10px; font-weight: 500; }
+  .crisis-opts { display: flex; flex-direction: column; gap: 6px; }
+  .crisis-opt { padding: 9px 12px; background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; color: var(--text); cursor: pointer; text-align: left; font-family: var(--font); }
+  .crisis-opt:hover { background: var(--bg2); }
+  .crisis-done { font-size: 13px; color: var(--green); padding: 8px 0; display: none; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="date-line" id="date-display"></div>
+    <div class="app-title">Compromisso Joyce <span class="level-badge" id="level-badge">Nível 1</span></div>
+    <div class="anchor-phrase">"Já provei que consigo. Minha sequência continua."</div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-label">Pontos hoje</div><div class="stat-value" id="pts-today">0</div><div class="stat-sub">de 120</div></div>
+    <div class="stat-card"><div class="stat-label">Sequência</div><div class="stat-value" id="streak-val">0</div><div class="stat-sub">dias seguidos</div></div>
+  </div>
+  <div class="conf-card">
+    <div class="conf-row"><span class="conf-label">Índice de confiança (30 dias)</span><span class="conf-pct" id="conf-pct">–</span></div>
+    <div class="bar-track"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
+    <div class="conf-status" id="conf-status">Sem dados ainda — complete o primeiro dia</div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-title">Carreira</span><span class="section-pts" id="pts-carreira">0 / 30 pts</span></div>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Apliquei o conhecimento de algum curso</span></div><span class="daily-pts">10 pts</span></label>
+      <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Produzi algo do meu projeto</span></div><span class="daily-pts">10 pts</span></label>
+      <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Planejei ou organizei meu trabalho</span></div><span class="daily-pts">10 pts</span></label>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-title">Saúde</span><span class="section-pts" id="pts-saude">0 / 30 pts</span></div>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Treinei</span></div><span class="daily-pts">10 pts</span></label>
+      <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Me alimentei adequadamente</span><span class="check-meta">Meta: 3 refeições corretas (seg–sáb)</span></div><span class="daily-pts">10 pts</span></label>
+      <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Dormi dentro da meta</span><span class="check-meta">Meta: mínimo 7h por noite</span></div><span class="daily-pts">10 pts</span></label>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-title">Estudos</span><span class="section-pts" id="pts-estudos">0 / 30 pts</span></div>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Li algo</span></div><span class="daily-pts">10 pts</span></label>
+      <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Estudei a pós-graduação</span><span class="check-meta">Meta: mínimo 2 aulas por semana</span></div><span class="daily-pts">10 pts</span></label>
+      <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Aprendi algo novo</span></div><span class="daily-pts">10 pts</span></label>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header"><span class="section-title">Vida pessoal</span><span class="section-pts" id="pts-pessoal">0 / 30 pts</span></div>
+    <div class="checklist">
+      <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Organizei algo da casa</span></div><span class="daily-pts">10 pts</span></label>
+      <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Passeei com a Meg</span></div><span class="daily-pts">10 pts</span></label>
+      <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Fiz algo para mim</span></div><span class="daily-pts">10 pts</span></label>
+    </div>
+  </div>
+  <div class="tcc-block">
+    <div class="tcc-title">Temperatura emocional de hoje</div>
+    <div class="temp-grid">
+      <button class="temp-btn t-azul" onclick="setTemp('azul',this)">Azul<br><span style="font-size:10px">neutro</span></button>
+      <button class="temp-btn t-verde" onclick="setTemp('verde',this)">Verde<br><span style="font-size:10px">leve</span></button>
+      <button class="temp-btn t-amarela" onclick="setTemp('amarela',this)">Amarela<br><span style="font-size:10px">moderado</span></button>
+      <button class="temp-btn t-laranja" onclick="setTemp('laranja',this)">Laranja<br><span style="font-size:10px">intenso</span></button>
+      <button class="temp-btn t-vermelha" onclick="setTemp('vermelha',this)">Vermelha<br><span style="font-size:10px">no limite</span></button>
+    </div>
+  </div>
+  <div class="tcc-block">
+    <div class="tcc-title">Registro de evitação</div>
+    <div class="evit-btns">
+      <button class="evit-btn" id="evit-nao" onclick="setEvit('nao')">Não evitei nada importante</button>
+      <button class="evit-btn" id="evit-sim" onclick="setEvit('sim')">Evitei algo importante</button>
+    </div>
+    <textarea class="evit-input" id="evit-text" placeholder="O que você evitou?" onblur="saveEvit()"></textarea>
+  </div>
+  <div class="score-display">
+    <div><span class="score-big" id="score-final">0</span><span class="score-max"> / 120</span></div>
+    <div class="score-msg" id="score-msg">Complete o dia para ver sua avaliação.</div>
+  </div>
+  <div class="victory-section">
+    <div class="victory-title">Provas de que estou evoluindo</div>
+    <textarea class="victory-input" id="victory-input" placeholder="Qual foi sua principal vitória hoje?"></textarea>
+    <button class="victory-save" onclick="saveVictory()">Salvar vitória</button>
+    <div class="victory-list" id="victory-list"></div>
+  </div>
+  <button class="crisis-btn" onclick="toggleCrisis()">Estou me sentindo insegura</button>
+  <div class="crisis-panel" id="crisis-panel">
+    <div class="crisis-q">Qual ação prática de até 10 minutos você pode fazer agora?</div>
+    <div class="crisis-opts">
+      <button class="crisis-opt" onclick="doneCrisis()">Ler 5 páginas</button>
+      <button class="crisis-opt" onclick="doneCrisis()">Organizar a mesa</button>
+      <button class="crisis-opt" onclick="doneCrisis()">Caminhar</button>
+      <button class="crisis-opt" onclick="doneCrisis()">Planejar amanhã</button>
+      <button class="crisis-opt" onclick="doneCrisis()">Fazer um exercício</button>
+    </div>
+    <div class="crisis-done" id="crisis-done">Você acabou de fortalecer sua confiança mais do que fortalecê-la pensando sobre ela.</div>
+  </div>
+</div>
+<script>
+const SK='cj_v3';
+let st={pts:{carreira:0,saude:0,estudos:0,pessoal:0},temp:null,evit:null,evitText:'',victories:[],history:[],lastDate:null,streak:0};
+function todayStr(){return new Date().toLocaleDateString('pt-BR');}
+function load(){try{const r=localStorage.getItem(SK);if(r)st=JSON.parse(r);}catch(e){}}
+function save(){try{localStorage.setItem(SK,JSON.stringify(st));}catch(e){}}
+function totalPts(){return Object.values(st.pts).reduce((a,b)=>a+b,0);}
+function init(){
+  const today=todayStr();
+  document.getElementById('date-display').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
+  if(st.lastDate&&st.lastDate!==today){
+    const y=new Date();y.setDate(y.getDate()-1);
+    st.streak=st.lastDate===y.toLocaleDateString('pt-BR')?(st.streak||0)+1:0;
+    st.history.push({date:st.lastDate,pts:totalPts()});
+    if(st.history.length>30)st.history=st.history.slice(-30);
+    st.pts={carreira:0,saude:0,estudos:0,pessoal:0};
+    st.temp=null;st.evit=null;st.evitText='';st.lastDate=today;
+    document.querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=false;});
+    save();
+  }else if(!st.lastDate){st.lastDate=today;save();}
+  if(st.temp)document.querySelectorAll('.temp-btn').forEach(b=>{if(b.classList.contains('t-'+st.temp))b.classList.add('sel');});
+  if(st.evit){
+    document.getElementById('evit-'+st.evit).classList.add('sel-'+st.evit);
+    if(st.evit==='sim'){document.getElementById('evit-text').classList.add('show');document.getElementById('evit-text').value=st.evitText||'';}
+  }
+  renderAll();
+}
+function updatePts(cb){
+  const area=cb.dataset.area,pts=parseInt(cb.dataset.pts);
+  const lbl=cb.closest('label').querySelector('.check-label');
+  if(cb.checked){st.pts[area]=(st.pts[area]||0)+pts;lbl.classList.add('done');}
+  else{st.pts[area]=Math.max(0,(st.pts[area]||0)-pts);lbl.classList.remove('done');}
+  save();renderAll();
+}
+function renderAll(){
+  const total=totalPts();
+  document.getElementById('pts-today').textContent=total;
+  document.getElementById('score-final').textContent=total;
+  document.getElementById('streak-val').textContent=st.streak||0;
+  ['carreira','saude','estudos','pessoal'].forEach(a=>{document.getElementById('pts-'+a).textContent=(st.pts[a]||0)+' / 30 pts';});
+  document.getElementById('score-msg').textContent=getMsg(total);
+  const all=[...st.history.map(h=>h.pts),total];
+  const conf=all.length>0?Math.round((all.filter(p=>p>=10).length/all.length)*100):0;
+  document.getElementById('conf-pct').textContent=all.length>0?conf+'%':'–';
+  document.getElementById('conf-bar').style.width=conf+'%';
+  document.getElementById('conf-status').textContent=getConfStatus(conf,all.length);
+  document.getElementById('level-badge').textContent=getLevel(st.streak||0,conf);
+  renderVictories();
+}
+function getMsg(p){
+  if(p>=90)return'Hoje você acumulou evidências. Você não venceu porque se sentiu confiante — ficou mais confiante porque agiu.';
+  if(p>=70)return'Continue. O progresso discreto costuma construir resultados duradouros.';
+  if(p>=40)return'Nem todo dia será extraordinário. Mas todo dia pode conter um pequeno avanço.';
+  if(p>0)return'Hoje não saiu como planejado. Observe os obstáculos, ajuste a rota e siga em frente.';
+  return'Complete o dia para ver sua avaliação.';
+}
+function getConfStatus(pct,days){
+  if(days===0)return'Sem dados ainda — complete o primeiro dia';
+  if(pct>=90)return'Confiança forte — você cumpre o que promete a si mesma';
+  if(pct>=70)return'Confiança em construção — continue';
+  if(pct>=50)return'Atenção — observe o que está dificultando';
+  return'Reconstrução — volte para o básico, uma ação por vez';
+}
+function getLevel(streak,conf){
+  if(conf>=80&&streak>=14)return'Nível 5 — Protagonista';
+  if(conf>=70&&streak>=7)return'Nível 4 — Independente';
+  if(conf>=60&&streak>=3)return'Nível 3 — Forte';
+  if(conf>=40||streak>=1)return'Nível 2 — Consistente';
+  return'Nível 1 — Recomeçando';
+}
+function setTemp(val,btn){
+  document.querySelectorAll('.temp-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');st.temp=val;save();
+}
+function setEvit(val){
+  st.evit=val;
+  document.getElementById('evit-nao').className='evit-btn'+(val==='nao'?' sel-nao':'');
+  document.getElementById('evit-sim').className='evit-btn'+(val==='sim'?' sel-sim':'');
+  const inp=document.getElementById('evit-text');
+  if(val==='sim')inp.classList.add('show');
+  else{inp.classList.remove('show');st.evitText='';}
+  save();
+}
+function saveEvit(){st.evitText=document.getElementById('evit-text').value;save();}
+function saveVictory(){
+  const inp=document.getElementById('victory-input');
+  const txt=inp.value.trim();if(!txt)return;
+  st.victories.unshift({text:txt,date:todayStr()});
+  if(st.victories.length>20)st.victories=st.victories.slice(0,20);
+  inp.value='';save();renderVictories();
+}
+function renderVictories(){
+  const list=document.getElementById('victory-list');
+  list.innerHTML=st.victories.slice(0,5).map(v=>`<div class="victory-item">${v.text}<span class="vic-date">${v.date}</span></div>`).join('');
+}
+function toggleCrisis(){
+  const p=document.getElementById('crisis-panel');p.classList.toggle('open');
+  document.getElementById('crisis-done').style.display='none';
+  document.querySelectorAll('.crisis-opt').forEach(b=>b.style.display='block');
+}
+function doneCrisis(){
+  document.querySelectorAll('.crisis-opt').forEach(b=>b.style.display='none');
+  document.getElementById('crisis-done').style.display='block';
+}
+load();init();
+</script>
+</body>
+</html>
