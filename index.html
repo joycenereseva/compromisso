@@ -152,7 +152,7 @@
   <!-- TAB HOJE -->
   <div class="tab-content active" id="tab-hoje">
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-label">Pontos hoje</div><div class="stat-value" id="pts-today">0</div><div class="stat-sub">de 120</div></div>
+      <div class="stat-card"><div class="stat-label">Pontos hoje</div><div class="stat-value" id="pts-today">0</div><div class="stat-sub">de 110</div></div>
       <div class="stat-card"><div class="stat-label">Sequência</div><div class="stat-value" id="streak-val">0</div><div class="stat-sub">dias seguidos</div></div>
     </div>
     <div class="conf-card">
@@ -177,11 +177,10 @@
       </div>
     </div>
     <div class="section">
-      <div class="section-header"><span class="section-title">Estudos</span><span class="section-pts" id="pts-estudos">0 / 30 pts</span></div>
+      <div class="section-header"><span class="section-title">Estudos</span><span class="section-pts" id="pts-estudos">0 / 20 pts</span></div>
       <div class="checklist">
         <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Li algo</span></div><span class="daily-pts">10 pts</span></label>
         <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Estudei a pós-graduação</span><span class="check-meta">Meta: mínimo 2 aulas por semana</span></div><span class="daily-pts">10 pts</span></label>
-        <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Aprendi algo novo</span></div><span class="daily-pts">10 pts</span></label>
       </div>
     </div>
     <div class="section">
@@ -241,7 +240,7 @@
       <div class="evit-done" id="evit-done">Você acabou de fortalecer sua confiança mais do que fortalecê-la pensando sobre ela.</div>
     </div>
     <div class="score-display">
-      <div><span class="score-big" id="score-final">0</span><span class="score-max"> / 120</span></div>
+      <div><span class="score-big" id="score-final">0</span><span class="score-max"> / 110</span></div>
       <div class="score-msg" id="score-msg">Complete o dia para ver sua avaliação.</div>
     </div>
     <div class="victory-section">
@@ -322,9 +321,11 @@
       <div class="conf-status" id="rep-des-status"></div>
     </div>
   </div>
-</div>
+  <div style="margin-top:1.5rem; padding:1.25rem; background:var(--bg-dark); border-radius:var(--radius); color:var(--green-pale); font-size:13px; line-height:1.8; font-style:italic;">
+    Meu sucesso vem do acúmulo dos dias em que eu venço a resistência, a insegurança, a procrastinação, a ansiedade. Se lembre: eu não tenho filhos, não estou incapacitada, consigo ir e vir, tenho comida, tenho casa, tenho conhecimento, ambição e disposição para lutar. Então lute. Continue. Não se esqueça disso. As coisas estão girando ao meu favor e quando não girarem, eu vou fazer assim mesmo. Eu sou capaz sim.
+  </div>
 
-<script>
+</div>
 const SK='cj_v4';
 let st={
   pts:{carreira:0,saude:0,estudos:0,pessoal:0},
@@ -404,7 +405,8 @@ function renderAll(){
   document.getElementById('pts-today').textContent=total;
   document.getElementById('score-final').textContent=total;
   document.getElementById('streak-val').textContent=st.streak||0;
-  ['carreira','saude','estudos','pessoal'].forEach(a=>{document.getElementById('pts-'+a).textContent=(st.pts[a]||0)+' / 30 pts';});
+  ['carreira','saude','pessoal'].forEach(a=>{document.getElementById('pts-'+a).textContent=(st.pts[a]||0)+' / 30 pts';});
+  document.getElementById('pts-estudos').textContent=(st.pts['estudos']||0)+' / 20 pts';
   document.getElementById('score-msg').textContent=getMsg(total);
   const all=[...st.history.map(h=>h.pts),total];
   const conf=all.length>0?Math.round((all.filter(p=>p>=10).length/all.length)*100):0;
