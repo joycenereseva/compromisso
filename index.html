@@ -5,162 +5,213 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Compromisso Joyce</title>
 <style>
-  :root {
-    --green: #1D9E75; --green-dark: #0F6E56; --green-light: #E1F5EE; --green-pale: #9FE1CB;
-    --bg-dark: #0F2A1E; --bg: #F7F6F2; --bg2: #EFEFEA; --border: #E0DED6; --border2: #D0CEC6;
-    --text: #1A1A18; --text2: #4A4A46; --text3: #888880; --radius: 14px; --radius-sm: 8px;
-    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); font-family: var(--font); color: var(--text); min-height: 100vh; padding: 1rem; }
-  .app { max-width: 400px; margin: 0 auto; padding-bottom: 3rem; }
-  .header { background: var(--bg-dark); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
-  .date-line { font-size: 11px; color: var(--green-pale); letter-spacing: 0.05em; margin-bottom: 6px; }
-  .app-title { font-size: 18px; font-weight: 500; color: #fff; display: flex; align-items: center; justify-content: space-between; }
-  .level-badge { font-size: 11px; padding: 3px 10px; border-radius: 99px; background: var(--green); color: var(--green-light); font-weight: 500; }
-  .anchor-phrase { font-size: 12px; color: var(--green-pale); font-style: italic; line-height: 1.6; margin-top: 10px; padding: 10px 12px; background: rgba(29,158,117,0.15); border-radius: var(--radius-sm); border-left: 2px solid var(--green); }
-  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
-  .stat-card { background: #fff; border-radius: var(--radius-sm); padding: 12px; text-align: center; border: 0.5px solid var(--border); }
-  .stat-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
-  .stat-value { font-size: 24px; font-weight: 500; color: var(--text); }
-  .stat-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
-  .conf-card { background: #fff; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1rem; border: 0.5px solid var(--border); }
-  .conf-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-  .conf-label { font-size: 12px; color: var(--text2); }
-  .conf-pct { font-size: 14px; font-weight: 500; color: var(--text); }
-  .bar-track { height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; margin-bottom: 4px; }
-  .bar-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.6s ease; }
-  .conf-status { font-size: 11px; color: var(--text3); margin-top: 6px; }
-  .section { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 8px; overflow: hidden; }
-  .section-header { padding: 11px 1.25rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid var(--border); background: var(--bg2); }
-  .section-title { font-size: 13px; font-weight: 500; color: var(--text); }
-  .section-pts { font-size: 11px; color: var(--text3); }
-  .checklist { padding: 4px 1.25rem; }
-  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 0.5px solid var(--border); }
-  .check-item:last-child { border-bottom: none; }
-  .check-item input[type=checkbox] { width: 17px; height: 17px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; margin-top: 2px; }
-  .check-text { flex: 1; cursor: pointer; }
-  .check-label { font-size: 13px; color: var(--text); line-height: 1.4; display: block; }
-  .check-label.done { color: var(--text3); text-decoration: line-through; }
-  .check-meta { font-size: 11px; color: var(--green); margin-top: 2px; display: block; }
-  .daily-pts { font-size: 11px; color: var(--text3); flex-shrink: 0; margin-top: 3px; }
-  .tcc-block { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 8px; padding: 1rem 1.25rem; }
-  .tcc-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
-  .temp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-  .temp-btn { padding: 8px 4px; border-radius: var(--radius-sm); border: 0.5px solid var(--border); font-size: 11px; text-align: center; cursor: pointer; background: transparent; color: var(--text2); line-height: 1.4; font-family: var(--font); }
-  .temp-btn.t-azul.sel { background: #E6F1FB; border-color: #378ADD; color: #0C447C; }
-  .temp-btn.t-verde.sel { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
-  .temp-btn.t-amarela.sel { background: #FAEEDA; border-color: #EF9F27; color: #633806; }
-  .temp-btn.t-laranja.sel { background: #FAECE7; border-color: #D85A30; color: #4A1B0C; }
-  .temp-btn.t-vermelha.sel { background: #FCEBEB; border-color: #E24B4A; color: #501313; }
-  .temp-response { margin-top: 10px; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 12px; line-height: 1.6; display: none; }
-  .temp-response.show { display: block; }
-  .temp-response-title { font-weight: 600; margin-bottom: 4px; font-size: 12px; }
-  .temp-response.azul { background: #E6F1FB; border-left: 2px solid #378ADD; color: #0C447C; }
-  .temp-response.verde { background: var(--green-light); border-left: 2px solid var(--green); color: var(--green-dark); }
-  .temp-response.amarela { background: #FAEEDA; border-left: 2px solid #EF9F27; color: #633806; }
-  .temp-response.laranja { background: #FAECE7; border-left: 2px solid #D85A30; color: #4A1B0C; }
-  .temp-response.vermelha { background: #FCEBEB; border-left: 2px solid #E24B4A; color: #501313; }
-  .evit-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-  .evit-btn { padding: 9px 8px; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; background: transparent; color: var(--text); text-align: center; font-family: var(--font); line-height: 1.3; }
-  .evit-btn:hover { background: var(--bg2); }
-  .evit-btn.sel-nao { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
-  .evit-btn.sel-sim { background: #FAECE7; border-color: #D85A30; color: #993C1D; }
-  .evit-input { width: 100%; font-size: 12px; padding: 8px 10px; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg2); color: var(--text); resize: none; min-height: 52px; display: none; font-family: var(--font); margin-top: 6px; }
-  .evit-input.show { display: block; }
-  .evit-response { margin-top: 10px; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 12px; line-height: 1.6; display: none; }
-  .evit-response.positive { background: var(--green-light); border-left: 2px solid var(--green); color: var(--green-dark); }
-  .evit-response.action { background: #FAEEDA; border-left: 2px solid #EF9F27; color: #633806; }
-  .evit-response.show { display: block; }
-  .evit-actions { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; display: none; }
-  .evit-actions.show { display: flex; }
-  .evit-action-btn { padding: 8px 12px; background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius-sm); font-size: 12px; color: var(--text); cursor: pointer; text-align: left; font-family: var(--font); }
-  .evit-action-btn:hover { background: var(--bg2); }
-  .evit-done { font-size: 12px; color: var(--green); padding: 8px 0; display: none; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+:root {
+  --green: #1D9E75; --green-dark: #0F6E56; --green-light: #E1F5EE; --green-pale: #9FE1CB;
+  --bg: #0A0A0A; --bg2: #111111; --bg3: #1A1A1A; --bg4: #222222;
+  --border: #2A2A2A; --border2: #333333;
+  --text: #F0EDE8; --text2: #A8A49E; --text3: #666360;
+  --radius: 16px; --radius-sm: 10px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); font-family: var(--font); color: var(--text); min-height: 100vh; }
+.app { max-width: 420px; margin: 0 auto; padding: 0 0 4rem; }
 
-  /* DESAMPARO BLOCK */
-  .desamparo-block { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 8px; padding: 1rem 1.25rem; }
-  .desamparo-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
-  .desamparo-sub { font-size: 11px; color: var(--text3); margin-bottom: 10px; }
-  .desamparo-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-  .des-btn { padding: 9px 8px; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; background: transparent; color: var(--text); text-align: center; font-family: var(--font); line-height: 1.3; }
-  .des-btn.sel-consegui { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
-  .des-btn.sel-nao { background: #FAECE7; border-color: #D85A30; color: #993C1D; }
-  .des-response { margin-top: 8px; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 12px; line-height: 1.6; display: none; }
-  .des-response.show { display: block; }
-  .des-response.positive { background: var(--green-light); border-left: 2px solid var(--green); color: var(--green-dark); }
-  .des-response.support { background: #FAEEDA; border-left: 2px solid #EF9F27; color: #633806; }
+/* MARQUEE */
+.marquee-wrap { overflow: hidden; background: var(--green); padding: 10px 0; margin-bottom: 0; }
+.marquee-track { display: flex; gap: 0; animation: marquee 18s linear infinite; white-space: nowrap; }
+.marquee-track span { font-size: 11px; font-weight: 700; color: #fff; letter-spacing: 0.15em; text-transform: uppercase; padding: 0 24px; }
+.marquee-track span::after { content: '•'; margin-left: 24px; opacity: 0.6; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  /* GRAFICO */
-  .chart-block { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 8px; padding: 1rem 1.25rem; }
-  .chart-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-  .chart-month { font-size: 11px; color: var(--text3); }
-  .chart-bars { display: flex; align-items: flex-end; gap: 4px; height: 80px; margin-bottom: 8px; }
-  .chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; height: 100%; justify-content: flex-end; }
-  .chart-bar { width: 100%; border-radius: 3px 3px 0 0; min-height: 3px; transition: height 0.4s ease; }
-  .chart-bar.achieved { background: var(--green); }
-  .chart-bar.missed { background: #E24B4A; opacity: 0.5; }
-  .chart-bar.empty { background: var(--border); }
-  .chart-day { font-size: 9px; color: var(--text3); }
-  .chart-legend { display: flex; gap: 12px; margin-top: 8px; }
-  .chart-leg { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text3); }
-  .chart-leg-dot { width: 8px; height: 8px; border-radius: 2px; }
-  .chart-summary { font-size: 12px; color: var(--text2); margin-top: 8px; padding: 8px 10px; background: var(--bg2); border-radius: var(--radius-sm); }
+/* HEADER */
+.header { background: var(--bg2); padding: 1.5rem 1.25rem 1.25rem; border-bottom: 1px solid var(--border); }
+.date-line { font-size: 11px; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+.app-title { font-size: 16px; font-weight: 800; color: var(--text); display: flex; align-items: center; justify-content: space-between; letter-spacing: -0.5px; }
+.level-badge { font-size: 10px; padding: 4px 12px; border-radius: 99px; background: rgba(29,158,117,0.15); color: var(--green); font-weight: 700; border: 1px solid rgba(29,158,117,0.3); letter-spacing: 0.05em; }
+.anchor-phrase { font-size: 13px; color: var(--text2); line-height: 1.7; margin-top: 12px; padding: 12px 14px; background: rgba(29,158,117,0.08); border-radius: var(--radius-sm); border-left: 3px solid var(--green); font-style: italic; }
 
-  .score-display { background: var(--bg-dark); border-radius: var(--radius); padding: 1.5rem 1.25rem; margin: 1rem 0; text-align: center; }
-  .score-big { font-size: 44px; font-weight: 500; color: #fff; }
-  .score-max { font-size: 18px; color: var(--green-pale); }
-  .score-msg { font-size: 13px; color: var(--green-pale); line-height: 1.7; margin-top: 12px; }
-  .victory-section { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); padding: 1rem 1.25rem; margin-bottom: 8px; }
-  .victory-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
-  .victory-input { width: 100%; font-size: 13px; padding: 8px 10px; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg2); color: var(--text); resize: none; min-height: 60px; font-family: var(--font); }
-  .victory-save { margin-top: 8px; padding: 8px 16px; font-size: 12px; background: transparent; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); cursor: pointer; color: var(--text2); font-family: var(--font); }
-  .victory-save:hover { background: var(--bg2); }
-  .victory-list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
-  .victory-item { font-size: 12px; color: var(--text2); padding: 7px 10px; background: var(--bg2); border-radius: var(--radius-sm); border-left: 2px solid var(--green); line-height: 1.4; }
-  .vic-date { font-size: 11px; color: var(--text3); display: block; margin-top: 2px; }
-  .crisis-btn { width: 100%; padding: 11px; background: transparent; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); font-size: 13px; color: var(--text2); cursor: pointer; margin-bottom: 8px; font-family: var(--font); }
-  .crisis-btn:hover { background: var(--bg2); }
-  .crisis-panel { background: var(--bg2); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1rem; border: 0.5px solid var(--border); display: none; }
-  .crisis-panel.open { display: block; }
-  .crisis-q { font-size: 13px; color: var(--text); margin-bottom: 10px; font-weight: 500; }
-  .crisis-opts { display: flex; flex-direction: column; gap: 6px; }
-  .crisis-opt { padding: 9px 12px; background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; color: var(--text); cursor: pointer; text-align: left; font-family: var(--font); }
-  .crisis-opt:hover { background: var(--bg2); }
-  .crisis-done { font-size: 13px; color: var(--green); padding: 8px 0; display: none; line-height: 1.5; }
-  .tab-nav { display: flex; gap: 6px; margin-bottom: 1rem; }
-  .tab-btn { flex: 1; padding: 8px 4px; font-size: 12px; border: 0.5px solid var(--border); border-radius: var(--radius-sm); background: transparent; cursor: pointer; font-family: var(--font); color: var(--text2); text-align: center; }
-  .tab-btn.active { background: var(--bg-dark); color: #fff; border-color: var(--bg-dark); }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
+/* TABS */
+.tab-nav { display: flex; gap: 0; background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 1.25rem; }
+.tab-btn { flex: 1; padding: 14px 4px; font-size: 12px; font-weight: 600; border: none; background: transparent; cursor: pointer; font-family: var(--font); color: var(--text3); text-align: center; border-bottom: 2px solid transparent; margin-bottom: -1px; letter-spacing: 0.03em; transition: all 0.2s; }
+.tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+.tab-content { display: none; padding: 1.25rem; }
+.tab-content.active { display: block; }
+
+/* STATS */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+.stat-card { background: var(--bg2); border-radius: var(--radius-sm); padding: 16px 14px; text-align: center; border: 1px solid var(--border); transition: border-color 0.2s; }
+.stat-card:hover { border-color: var(--border2); }
+.stat-label { font-size: 10px; color: var(--text3); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.stat-value { font-size: 32px; font-weight: 800; color: var(--text); letter-spacing: -1px; }
+.stat-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+/* CONFIDENCE */
+.conf-card { background: var(--bg2); border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin-bottom: 1rem; border: 1px solid var(--border); }
+.conf-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.conf-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.conf-pct { font-size: 16px; font-weight: 800; color: var(--green); }
+.bar-track { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; margin-bottom: 4px; }
+.bar-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.8s ease; }
+.conf-status { font-size: 11px; color: var(--text3); margin-top: 6px; }
+
+/* SECTIONS */
+.section { background: var(--bg2); border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
+.section:hover { border-color: var(--border2); }
+.section-header { padding: 13px 1.25rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+.section-title { font-size: 12px; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.08em; }
+.section-pts { font-size: 11px; color: var(--green); font-weight: 600; }
+.checklist { padding: 4px 1.25rem; }
+.check-item { display: flex; align-items: flex-start; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); transition: opacity 0.2s; }
+.check-item:last-child { border-bottom: none; }
+.check-item input[type=checkbox] { width: 18px; height: 18px; cursor: pointer; flex-shrink: 0; margin-top: 1px; border-radius: 50%; appearance: none; -webkit-appearance: none; background: var(--bg3); border: 2px solid var(--border2); transition: all 0.2s; } .check-item input[type=checkbox]:checked { background: var(--green); border-color: var(--green); background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.707 4.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3-3a1 1 0 1 1 1.414-1.414L6 10.586l6.293-6.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E"); background-size: 12px; background-repeat: no-repeat; background-position: center; }
+.check-text { flex: 1; cursor: pointer; }
+.check-label { font-size: 13px; color: var(--text); line-height: 1.4; display: block; }
+.check-label.done { color: var(--text3); text-decoration: line-through; }
+.check-meta { font-size: 11px; color: var(--green); margin-top: 3px; display: block; opacity: 0.8; }
+.daily-pts { font-size: 11px; color: var(--text3); flex-shrink: 0; margin-top: 2px; font-weight: 600; }
+
+/* TCC BLOCKS */
+.tcc-block { background: var(--bg2); border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 10px; padding: 1.1rem 1.25rem; }
+.tcc-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+.temp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.temp-btn { padding: 10px 4px; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 11px; text-align: center; cursor: pointer; background: var(--bg3); color: var(--text3); line-height: 1.4; font-family: var(--font); font-weight: 500; transition: all 0.2s; }
+.temp-btn:hover { border-color: var(--border2); color: var(--text); }
+.temp-btn.t-azul.sel { background: #0C2340; border-color: #378ADD; color: #7BB8F0; }
+.temp-btn.t-verde.sel { background: rgba(29,158,117,0.15); border-color: var(--green); color: var(--green); }
+.temp-btn.t-amarela.sel { background: #2A1E00; border-color: #EF9F27; color: #EF9F27; }
+.temp-btn.t-laranja.sel { background: #2A0E00; border-color: #D85A30; color: #D85A30; }
+.temp-btn.t-vermelha.sel { background: #2A0000; border-color: #E24B4A; color: #E24B4A; }
+.temp-response { margin-top: 12px; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 12px; line-height: 1.7; display: none; }
+.temp-response.show { display: block; }
+.temp-response-title { font-weight: 700; margin-bottom: 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+.temp-response.azul { background: rgba(55,138,221,0.08); border-left: 3px solid #378ADD; color: #7BB8F0; }
+.temp-response.verde { background: rgba(29,158,117,0.08); border-left: 3px solid var(--green); color: var(--green-pale); }
+.temp-response.amarela { background: rgba(239,159,39,0.08); border-left: 3px solid #EF9F27; color: #EF9F27; }
+.temp-response.laranja { background: rgba(216,90,48,0.08); border-left: 3px solid #D85A30; color: #D85A30; }
+.temp-response.vermelha { background: rgba(226,75,74,0.08); border-left: 3px solid #E24B4A; color: #E24B4A; }
+
+/* EVITAÇÃO */
+.evit-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.evit-btn { padding: 11px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; background: var(--bg3); color: var(--text2); text-align: center; font-family: var(--font); line-height: 1.3; font-weight: 500; transition: all 0.2s; }
+.evit-btn:hover { border-color: var(--border2); color: var(--text); }
+.evit-btn.sel-nao { background: rgba(29,158,117,0.1); border-color: var(--green); color: var(--green); }
+.evit-btn.sel-sim { background: rgba(216,90,48,0.1); border-color: #D85A30; color: #D85A30; }
+.evit-input { width: 100%; font-size: 12px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg3); color: var(--text); resize: none; min-height: 52px; display: none; font-family: var(--font); margin-top: 8px; }
+.evit-input.show { display: block; }
+.evit-input:focus { outline: none; border-color: var(--green); }
+.evit-response { margin-top: 10px; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 12px; line-height: 1.7; display: none; }
+.evit-response.positive { background: rgba(29,158,117,0.08); border-left: 3px solid var(--green); color: var(--green-pale); }
+.evit-response.action { background: rgba(239,159,39,0.08); border-left: 3px solid #EF9F27; color: #EF9F27; }
+.evit-response.show { display: block; }
+.evit-actions { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; display: none; }
+.evit-actions.show { display: flex; }
+.evit-action-btn { padding: 10px 14px; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 12px; color: var(--text2); cursor: pointer; text-align: left; font-family: var(--font); transition: all 0.2s; }
+.evit-action-btn:hover { background: var(--bg4); color: var(--text); border-color: var(--green); }
+.evit-done { font-size: 12px; color: var(--green); padding: 8px 0; display: none; font-weight: 500; }
+
+/* SCORE */
+.score-display { background: linear-gradient(135deg, #0F2A1E 0%, #0A1A10 100%); border-radius: var(--radius-sm); padding: 2rem 1.5rem; margin: 1rem 0; text-align: center; border: 1px solid rgba(29,158,117,0.2); }
+.score-big { font-size: 56px; font-weight: 800; color: #fff; letter-spacing: -2px; }
+.score-max { font-size: 20px; color: var(--green-pale); font-weight: 500; }
+.score-msg { font-size: 13px; color: var(--green-pale); line-height: 1.7; margin-top: 14px; opacity: 0.9; }
+
+/* VICTORIES */
+.victory-section { background: var(--bg2); border-radius: var(--radius-sm); border: 1px solid var(--border); padding: 1.1rem 1.25rem; margin-bottom: 10px; }
+.victory-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+.victory-input { width: 100%; font-size: 13px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg3); color: var(--text); resize: none; min-height: 60px; font-family: var(--font); }
+.victory-input:focus { outline: none; border-color: var(--green); }
+.victory-save { margin-top: 8px; padding: 10px 20px; font-size: 12px; background: rgba(29,158,117,0.1); border: 1px solid rgba(29,158,117,0.3); border-radius: var(--radius-sm); cursor: pointer; color: var(--green); font-family: var(--font); font-weight: 600; transition: all 0.2s; }
+.victory-save:hover { background: rgba(29,158,117,0.2); }
+.victory-list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.victory-item { font-size: 12px; color: var(--text2); padding: 9px 12px; background: var(--bg3); border-radius: var(--radius-sm); border-left: 3px solid var(--green); line-height: 1.5; }
+.vic-date { font-size: 10px; color: var(--text3); display: block; margin-top: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* CRISIS */
+.crisis-btn { width: 100%; padding: 13px; background: rgba(226,75,74,0.06); border: 1px solid rgba(226,75,74,0.2); border-radius: var(--radius-sm); font-size: 13px; color: #E24B4A; cursor: pointer; margin-bottom: 10px; font-family: var(--font); font-weight: 600; transition: all 0.2s; }
+.crisis-btn:hover { background: rgba(226,75,74,0.12); border-color: rgba(226,75,74,0.4); }
+.crisis-panel { background: var(--bg2); border-radius: var(--radius-sm); padding: 1.1rem 1.25rem; margin-bottom: 1rem; border: 1px solid rgba(226,75,74,0.2); display: none; }
+.crisis-panel.open { display: block; }
+.crisis-q { font-size: 13px; color: var(--text); margin-bottom: 12px; font-weight: 600; line-height: 1.5; }
+.crisis-opts { display: flex; flex-direction: column; gap: 6px; }
+.crisis-opt { padding: 11px 14px; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; color: var(--text2); cursor: pointer; text-align: left; font-family: var(--font); transition: all 0.2s; }
+.crisis-opt:hover { background: var(--bg4); color: var(--text); border-color: var(--border2); }
+.crisis-done { font-size: 13px; color: var(--green); padding: 8px 0; display: none; line-height: 1.6; font-weight: 500; }
+
+/* DESAMPARO */
+.desamparo-block { background: var(--bg2); border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 10px; padding: 1.1rem 1.25rem; }
+.desamparo-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.desamparo-sub { font-size: 11px; color: var(--text3); margin-bottom: 12px; }
+.desamparo-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.des-btn { padding: 11px 8px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; background: var(--bg3); color: var(--text2); text-align: center; font-family: var(--font); line-height: 1.3; font-weight: 500; transition: all 0.2s; }
+.des-btn:hover { border-color: var(--border2); color: var(--text); }
+.des-btn.sel-consegui { background: rgba(29,158,117,0.1); border-color: var(--green); color: var(--green); }
+.des-btn.sel-nao { background: rgba(216,90,48,0.1); border-color: #D85A30; color: #D85A30; }
+.des-response { margin-top: 10px; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 12px; line-height: 1.7; display: none; }
+.des-response.show { display: block; }
+.des-response.positive { background: rgba(29,158,117,0.08); border-left: 3px solid var(--green); color: var(--green-pale); }
+.des-response.support { background: rgba(239,159,39,0.08); border-left: 3px solid #EF9F27; color: #EF9F27; }
+
+/* CHARTS */
+.chart-block { background: var(--bg2); border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 10px; padding: 1.1rem 1.25rem; }
+.chart-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; letter-spacing: 0.08em; }
+.chart-month { font-size: 11px; color: var(--text3); font-weight: 400; text-transform: none; letter-spacing: 0; }
+.chart-bars { display: flex; align-items: flex-end; gap: 3px; height: 80px; margin-bottom: 8px; }
+.chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; height: 100%; justify-content: flex-end; }
+.chart-bar { width: 100%; border-radius: 3px 3px 0 0; min-height: 3px; transition: height 0.4s ease; }
+.chart-bar.achieved { background: var(--green); }
+.chart-bar.missed { background: #E24B4A; opacity: 0.5; }
+.chart-bar.empty { background: var(--border); }
+.chart-day { font-size: 9px; color: var(--text3); }
+.chart-legend { display: flex; gap: 12px; margin-top: 8px; }
+.chart-leg { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text3); }
+.chart-leg-dot { width: 8px; height: 8px; border-radius: 2px; }
+.chart-summary { font-size: 12px; color: var(--text2); margin-top: 8px; padding: 10px 12px; background: var(--bg3); border-radius: var(--radius-sm); line-height: 1.5; }
+
+/* MOTIVATIONAL FOOTER */
+.motivational { margin: 1.25rem 1.25rem 0; padding: 1.5rem; background: linear-gradient(135deg, #0F2A1E 0%, #0A1A10 100%); border-radius: var(--radius-sm); border: 1px solid rgba(29,158,117,0.2); }
+.motivational p { font-size: 13px; color: var(--green-pale); line-height: 1.8; font-style: italic; }
+
+/* SCROLL ANIMATIONS */
+.fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 <div class="app">
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>COMPROMISSO</span><span>CONSISTÊNCIA</span><span>DISCIPLINA</span><span>EVOLUÇÃO</span><span>AUTOCONFIANÇA</span><span>CORAGEM</span><span>PROPÓSITO</span><span>AÇÃO</span><span>COMPROMISSO</span><span>CONSISTÊNCIA</span><span>DISCIPLINA</span><span>EVOLUÇÃO</span><span>AUTOCONFIANÇA</span><span>CORAGEM</span><span>PROPÓSITO</span><span>AÇÃO</span>
+    </div>
+  </div>
+
   <div class="header">
     <div class="date-line" id="date-display"></div>
-    <div class="app-title">Compromisso Joyce <span class="level-badge" id="level-badge">Nível 1</span></div>
+    <div class="app-title">COMPROMISSO JOYCE <span class="level-badge" id="level-badge">Nível 1</span></div>
     <div class="anchor-phrase">"Já provei que consigo. Minha sequência continua."</div>
   </div>
 
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="showTab('hoje')">Hoje</button>
-    <button class="tab-btn" onclick="showTab('desamparo')">Desamparo</button>
-    <button class="tab-btn" onclick="showTab('relatorio')">Relatório</button>
+    <button class="tab-btn active" onclick="showTab('hoje',this)">Hoje</button>
+    <button class="tab-btn" onclick="showTab('desamparo',this)">Desamparo</button>
+    <button class="tab-btn" onclick="showTab('relatorio',this)">Relatório</button>
   </div>
 
   <!-- TAB HOJE -->
   <div class="tab-content active" id="tab-hoje">
-    <div class="stats-grid">
+    <div class="stats-grid fade-in">
       <div class="stat-card"><div class="stat-label">Pontos hoje</div><div class="stat-value" id="pts-today">0</div><div class="stat-sub">de 110</div></div>
       <div class="stat-card"><div class="stat-label">Sequência</div><div class="stat-value" id="streak-val">0</div><div class="stat-sub">dias seguidos</div></div>
     </div>
-    <div class="conf-card">
-      <div class="conf-row"><span class="conf-label">Índice de confiança (30 dias)</span><span class="conf-pct" id="conf-pct">–</span></div>
+    <div class="conf-card fade-in">
+      <div class="conf-row"><span class="conf-label">Índice de confiança</span><span class="conf-pct" id="conf-pct">–</span></div>
       <div class="bar-track"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
       <div class="conf-status" id="conf-status">Sem dados ainda — complete o primeiro dia</div>
     </div>
-    <div class="section">
+    <div class="section fade-in">
       <div class="section-header"><span class="section-title">Carreira</span><span class="section-pts" id="pts-carreira">0 / 30 pts</span></div>
       <div class="checklist">
         <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Apliquei o conhecimento de algum curso</span></div><span class="daily-pts">10 pts</span></label>
@@ -168,7 +219,7 @@
         <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Planejei ou organizei meu trabalho</span></div><span class="daily-pts">10 pts</span></label>
       </div>
     </div>
-    <div class="section">
+    <div class="section fade-in">
       <div class="section-header"><span class="section-title">Saúde</span><span class="section-pts" id="pts-saude">0 / 30 pts</span></div>
       <div class="checklist">
         <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Treinei</span></div><span class="daily-pts">10 pts</span></label>
@@ -176,14 +227,14 @@
         <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Dormi dentro da meta</span><span class="check-meta">Meta: mínimo 7h por noite</span></div><span class="daily-pts">10 pts</span></label>
       </div>
     </div>
-    <div class="section">
+    <div class="section fade-in">
       <div class="section-header"><span class="section-title">Estudos</span><span class="section-pts" id="pts-estudos">0 / 20 pts</span></div>
       <div class="checklist">
         <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Li algo</span></div><span class="daily-pts">10 pts</span></label>
         <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Estudei a pós-graduação</span><span class="check-meta">Meta: mínimo 2 aulas por semana</span></div><span class="daily-pts">10 pts</span></label>
       </div>
     </div>
-    <div class="section">
+    <div class="section fade-in">
       <div class="section-header"><span class="section-title">Vida pessoal</span><span class="section-pts" id="pts-pessoal">0 / 30 pts</span></div>
       <div class="checklist">
         <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Organizei algo da casa</span></div><span class="daily-pts">10 pts</span></label>
@@ -191,7 +242,7 @@
         <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Fiz algo para mim</span></div><span class="daily-pts">10 pts</span></label>
       </div>
     </div>
-    <div class="tcc-block">
+    <div class="tcc-block fade-in">
       <div class="tcc-title">Temperatura emocional de hoje</div>
       <div class="temp-grid">
         <button class="temp-btn t-azul" onclick="setTemp('azul',this)">Azul<br><span style="font-size:10px">neutro</span></button>
@@ -200,28 +251,13 @@
         <button class="temp-btn t-laranja" onclick="setTemp('laranja',this)">Laranja<br><span style="font-size:10px">intenso</span></button>
         <button class="temp-btn t-vermelha" onclick="setTemp('vermelha',this)">Vermelha<br><span style="font-size:10px">no limite</span></button>
       </div>
-      <div class="temp-response azul" id="temp-resp-azul">
-        <div class="temp-response-title">Abordar — Azul</div>
-        Você está regulada. Aproveite para avançar em algo que importa — estudo, consultoria, leitura. Esse é o melhor momento para agir com o cérebro pensante no comando.
-      </div>
-      <div class="temp-response verde" id="temp-resp-verde">
-        <div class="temp-response-title">Abordar — Verde</div>
-        Leve desconforto presente. Nomeie o que está sentindo e continue. Não precisa resolver — só observar e seguir em frente. Você está no controle.
-      </div>
-      <div class="temp-response amarela" id="temp-resp-amarela">
-        <div class="temp-response-title">Abordar — Amarela</div>
-        Atenção: sua amígdala está acordada. Antes de agir, respire — 4 dentro, 7 segura, 8 fora. Depois pergunte: o que seria a ação oposta agora? Se a emoção quer que você evite algo, aproxime-se devagar. Pequenas vitórias primeiro.
-      </div>
-      <div class="temp-response laranja" id="temp-resp-laranja">
-        <div class="temp-response-title">Abordar — Laranja</div>
-        Esse é o momento de treinar. Não tome decisões grandes agora. Escolha uma ação pequena e oposta ao que a emoção quer: se quer fugir, fica. Se quer mandar mensagem, espera 20 minutos. Se quer parar, faz só mais uma coisa pequena. O treino acontece aqui.
-      </div>
-      <div class="temp-response vermelha" id="temp-resp-vermelha">
-        <div class="temp-response-title">Abordar — Vermelha</div>
-        Temperatura vermelha — não tente treinar ação oposta agora. O cérebro emocional está no comando total. Primeiro: água, respire, mova o corpo. Espere a temperatura baixar para laranja antes de agir em qualquer coisa importante. Nenhuma decisão grande no vermelho.
-      </div>
+      <div class="temp-response azul" id="temp-resp-azul"><div class="temp-response-title">Abordar — Azul</div>Você está regulada. Aproveite para avançar em algo que importa — estudo, consultoria, leitura. Esse é o melhor momento para agir com o cérebro pensante no comando.</div>
+      <div class="temp-response verde" id="temp-resp-verde"><div class="temp-response-title">Abordar — Verde</div>Leve desconforto presente. Nomeie o que está sentindo e continue. Não precisa resolver — só observar e seguir em frente. Você está no controle.</div>
+      <div class="temp-response amarela" id="temp-resp-amarela"><div class="temp-response-title">Abordar — Amarela</div>Atenção: sua amígdala está acordada. Antes de agir, respire — 4 dentro, 7 segura, 8 fora. Depois pergunte: o que seria a ação oposta agora? Se a emoção quer que você evite algo, aproxime-se devagar. Pequenas vitórias primeiro.</div>
+      <div class="temp-response laranja" id="temp-resp-laranja"><div class="temp-response-title">Abordar — Laranja</div>Esse é o momento de treinar. Não tome decisões grandes agora. Escolha uma ação pequena e oposta ao que a emoção quer: se quer fugir, fica. Se quer mandar mensagem, espera 20 minutos. Se quer parar, faz só mais uma coisa pequena. O treino acontece aqui.</div>
+      <div class="temp-response vermelha" id="temp-resp-vermelha"><div class="temp-response-title">Abordar — Vermelha</div>Temperatura vermelha — não tente treinar ação oposta agora. O cérebro emocional está no comando total. Primeiro: água, respire, mova o corpo. Espere a temperatura baixar para laranja antes de agir em qualquer coisa importante. Nenhuma decisão grande no vermelho.</div>
     </div>
-    <div class="tcc-block">
+    <div class="tcc-block fade-in">
       <div class="tcc-title">Registro de evitação</div>
       <div class="evit-btns">
         <button class="evit-btn" id="evit-nao" onclick="setEvit('nao')">Não evitei nada importante</button>
@@ -239,11 +275,11 @@
       </div>
       <div class="evit-done" id="evit-done">Você acabou de fortalecer sua confiança mais do que fortalecê-la pensando sobre ela.</div>
     </div>
-    <div class="score-display">
+    <div class="score-display fade-in">
       <div><span class="score-big" id="score-final">0</span><span class="score-max"> / 110</span></div>
       <div class="score-msg" id="score-msg">Complete o dia para ver sua avaliação.</div>
     </div>
-    <div class="victory-section">
+    <div class="victory-section fade-in">
       <div class="victory-title">Provas de que estou evoluindo</div>
       <textarea class="victory-input" id="victory-input" placeholder="Qual foi sua principal vitória hoje?"></textarea>
       <button class="victory-save" onclick="saveVictory()">Salvar vitória</button>
@@ -265,7 +301,7 @@
 
   <!-- TAB DESAMPARO -->
   <div class="tab-content" id="tab-desamparo">
-    <div class="desamparo-block">
+    <div class="desamparo-block fade-in">
       <div class="desamparo-title">Tolerância ao desamparo</div>
       <div class="desamparo-sub">10 a 15 minutos antes de dormir — combinado com Amanda</div>
       <div class="desamparo-btns">
@@ -276,20 +312,17 @@
       <div class="des-response support" id="des-neg">Tudo bem. Não conseguir hoje não apaga os dias que você conseguiu. O treino continua amanhã. O que aconteceu que dificultou?</div>
       <textarea class="evit-input show" id="des-note" placeholder="Como foi? (opcional)" onblur="saveDesNote()" style="margin-top:10px"></textarea>
     </div>
-    <div class="chart-block">
-      <div class="chart-title">
-        <span>Minha evolução — desamparo</span>
-        <span class="chart-month" id="chart-month"></span>
-      </div>
+    <div class="chart-block fade-in">
+      <div class="chart-title"><span>Evolução — desamparo</span><span class="chart-month" id="chart-month"></span></div>
       <div class="chart-bars" id="chart-bars"></div>
       <div class="chart-legend">
         <div class="chart-leg"><div class="chart-leg-dot" style="background:var(--green)"></div>Consegui</div>
-        <div class="chart-leg"><div class="chart-leg-dot" style="background:#E24B4A; opacity:0.5"></div>Não consegui</div>
+        <div class="chart-leg"><div class="chart-leg-dot" style="background:#E24B4A;opacity:0.5"></div>Não consegui</div>
         <div class="chart-leg"><div class="chart-leg-dot" style="background:var(--border)"></div>Sem registro</div>
       </div>
       <div class="chart-summary" id="chart-summary"></div>
     </div>
-    <div class="victory-section">
+    <div class="victory-section fade-in">
       <div class="victory-title">Provas de que estou me regulando</div>
       <div class="victory-list" id="desamparo-list"></div>
     </div>
@@ -297,58 +330,49 @@
 
   <!-- TAB RELATÓRIO -->
   <div class="tab-content" id="tab-relatorio">
-    <div class="chart-block">
-      <div class="chart-title">
-        <span>Pontuação diária — este mês</span>
-        <span class="chart-month" id="chart-month2"></span>
-      </div>
+    <div class="chart-block fade-in">
+      <div class="chart-title"><span>Pontuação — este mês</span><span class="chart-month" id="chart-month2"></span></div>
       <div class="chart-bars" id="chart-bars2"></div>
       <div class="chart-legend">
         <div class="chart-leg"><div class="chart-leg-dot" style="background:var(--green)"></div>Excelente (90+)</div>
         <div class="chart-leg"><div class="chart-leg-dot" style="background:#EF9F27"></div>Bom (70+)</div>
-        <div class="chart-leg"><div class="chart-leg-dot" style="background:#D85A30; opacity:0.6"></div>Regular</div>
+        <div class="chart-leg"><div class="chart-leg-dot" style="background:#D85A30;opacity:0.6"></div>Regular</div>
       </div>
       <div class="chart-summary" id="report-summary"></div>
     </div>
-    <div class="conf-card">
+    <div class="conf-card fade-in">
       <div class="conf-row"><span class="conf-label">Índice de confiança geral</span><span class="conf-pct" id="rep-conf">–</span></div>
       <div class="bar-track"><div class="bar-fill" id="rep-conf-bar" style="width:0%"></div></div>
       <div class="conf-status" id="rep-conf-status"></div>
     </div>
-    <div class="conf-card">
+    <div class="conf-card fade-in">
       <div class="conf-row"><span class="conf-label">Tolerância ao desamparo</span><span class="conf-pct" id="rep-des">–</span></div>
-      <div class="bar-track"><div class="bar-fill" id="rep-des-bar" style="width:0%" style="background:#9B59B6"></div></div>
+      <div class="bar-track"><div class="bar-fill" id="rep-des-bar" style="width:0%"></div></div>
       <div class="conf-status" id="rep-des-status"></div>
     </div>
   </div>
-  <div style="margin-top:1.5rem; padding:1.25rem; background:var(--bg-dark); border-radius:var(--radius); color:var(--green-pale); font-size:13px; line-height:1.8; font-style:italic;">
-    Meu sucesso vem do acúmulo dos dias em que eu venço a resistência, a insegurança, a procrastinação, a ansiedade. Se lembre: eu não tenho filhos, não estou incapacitada, consigo ir e vir, tenho comida, tenho casa, tenho conhecimento, ambição e disposição para lutar. Então lute. Continue. Não se esqueça disso. As coisas estão girando ao meu favor e quando não girarem, eu vou fazer assim mesmo. Eu sou capaz sim.
+
+  <div class="motivational fade-in">
+    <p>Meu sucesso vem do acúmulo dos dias em que eu venço a resistência, a insegurança, a procrastinação, a ansiedade. Se lembre: eu não tenho filhos, não estou incapacitada, consigo ir e vir, tenho comida, tenho casa, tenho conhecimento, ambição e disposição para lutar. Então lute. Continue. Não se esqueça disso. As coisas estão girando ao meu favor e quando não girarem, eu vou fazer assim mesmo. Eu sou capaz sim.</p>
   </div>
 
 </div>
 <script>
 const SK='cj_v4';
-let st={
-  pts:{carreira:0,saude:0,estudos:0,pessoal:0},
-  temp:null,evit:null,evitText:'',
-  desamparo:null,desNote:'',
-  victories:[],desamparoVic:[],
-  history:[],desamparoHistory:[],
-  lastDate:null,streak:0
-};
-
+let st={pts:{carreira:0,saude:0,estudos:0,pessoal:0},temp:null,evit:null,evitText:'',desamparo:null,desNote:'',victories:[],desamparoVic:[],history:[],desamparoHistory:[],lastDate:null,streak:0};
 function todayStr(){return new Date().toLocaleDateString('pt-BR');}
 function load(){try{const r=localStorage.getItem(SK);if(r)st=JSON.parse(r);}catch(e){}}
 function save(){try{localStorage.setItem(SK,JSON.stringify(st));}catch(e){}}
 function totalPts(){return Object.values(st.pts).reduce((a,b)=>a+b,0);}
 
-function showTab(name){
+function showTab(name,btn){
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
-  event.target.classList.add('active');
+  btn.classList.add('active');
   if(name==='desamparo')renderDesamparoChart();
   if(name==='relatorio')renderReport();
+  observeFadeIns();
 }
 
 function init(){
@@ -362,27 +386,18 @@ function init(){
     if(st.history.length>30)st.history=st.history.slice(-30);
     if(st.desamparoHistory.length>30)st.desamparoHistory=st.desamparoHistory.slice(-30);
     st.pts={carreira:0,saude:0,estudos:0,pessoal:0};
-    st.temp=null;st.evit=null;st.evitText='';
-    st.desamparo=null;st.desNote='';
-    st.lastDate=today;
+    st.temp=null;st.evit=null;st.evitText='';st.desamparo=null;st.desNote='';st.lastDate=today;
     document.querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=false;});
     save();
   }else if(!st.lastDate){st.lastDate=today;save();}
   if(st.temp){
     document.querySelectorAll('.temp-btn').forEach(b=>{if(b.classList.contains('t-'+st.temp))b.classList.add('sel');});
-    const resp=document.getElementById('temp-resp-'+st.temp);
-    if(resp)resp.classList.add('show');
+    const resp=document.getElementById('temp-resp-'+st.temp);if(resp)resp.classList.add('show');
   }
   if(st.evit){
     document.getElementById('evit-'+st.evit).classList.add('sel-'+st.evit);
-    if(st.evit==='sim'){
-      document.getElementById('evit-text').classList.add('show');
-      document.getElementById('evit-text').value=st.evitText||'';
-      document.getElementById('evit-neg').classList.add('show');
-      document.getElementById('evit-actions').classList.add('show');
-    } else {
-      document.getElementById('evit-pos').classList.add('show');
-    }
+    if(st.evit==='sim'){document.getElementById('evit-text').classList.add('show');document.getElementById('evit-text').value=st.evitText||'';document.getElementById('evit-neg').classList.add('show');document.getElementById('evit-actions').classList.add('show');}
+    else{document.getElementById('evit-pos').classList.add('show');}
   }
   if(st.desamparo){
     document.getElementById('des-'+st.desamparo).classList.add('sel-'+st.desamparo);
@@ -391,6 +406,17 @@ function init(){
     document.getElementById('des-note').value=st.desNote||'';
   }
   renderAll();
+  observeFadeIns();
+}
+
+function observeFadeIns(){
+  const els=document.querySelectorAll('.fade-in:not(.visible)');
+  if('IntersectionObserver' in window){
+    const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+    els.forEach(el=>obs.observe(el));
+  } else {
+    els.forEach(el=>el.classList.add('visible'));
+  }
 }
 
 function updatePts(cb){
@@ -415,8 +441,7 @@ function renderAll(){
   document.getElementById('conf-bar').style.width=conf+'%';
   document.getElementById('conf-status').textContent=getConfStatus(conf,all.length);
   document.getElementById('level-badge').textContent=getLevel(st.streak||0,conf);
-  renderVictories();
-  renderDesamparoVic();
+  renderVictories();renderDesamparoVic();
 }
 
 function getMsg(p){
@@ -456,21 +481,10 @@ function setEvit(val){
   document.getElementById('evit-neg').classList.remove('show');
   document.getElementById('evit-actions').classList.remove('show');
   const inp=document.getElementById('evit-text');
-  if(val==='sim'){
-    inp.classList.add('show');
-    document.getElementById('evit-neg').classList.add('show');
-    document.getElementById('evit-actions').classList.add('show');
-  } else {
-    inp.classList.remove('show');
-    st.evitText='';
-    document.getElementById('evit-pos').classList.add('show');
-    st.victories.unshift({text:'Não evitei nada importante hoje.',date:todayStr(),type:'evit'});
-    save();renderVictories();
-  }
+  if(val==='sim'){inp.classList.add('show');document.getElementById('evit-neg').classList.add('show');document.getElementById('evit-actions').classList.add('show');}
+  else{inp.classList.remove('show');st.evitText='';document.getElementById('evit-pos').classList.add('show');st.victories.unshift({text:'Não evitei nada importante hoje.',date:todayStr(),type:'evit'});save();renderVictories();}
 }
-
 function saveEvit(){st.evitText=document.getElementById('evit-text').value;save();}
-
 function doneEvitAction(btn){
   document.getElementById('evit-actions').style.display='none';
   document.getElementById('evit-done').style.display='block';
@@ -484,31 +498,21 @@ function setDesamparo(val){
   document.getElementById('des-nao').className='des-btn'+(val==='nao'?' sel-nao':'');
   document.getElementById('des-pos').classList.remove('show');
   document.getElementById('des-neg').classList.remove('show');
-  if(val==='consegui'){
-    document.getElementById('des-pos').classList.add('show');
-    st.desamparoVic.unshift({text:'Fiquei comigo mesma por 10-15 minutos antes de dormir.',date:todayStr()});
-    save();renderDesamparoVic();
-  } else {
-    document.getElementById('des-neg').classList.add('show');
-  }
+  if(val==='consegui'){document.getElementById('des-pos').classList.add('show');st.desamparoVic.unshift({text:'Fiquei comigo mesma por 10-15 minutos antes de dormir.',date:todayStr()});save();renderDesamparoVic();}
+  else document.getElementById('des-neg').classList.add('show');
 }
-
 function saveDesNote(){st.desNote=document.getElementById('des-note').value;save();}
 
 function renderVictories(){
   const list=document.getElementById('victory-list');
   list.innerHTML=st.victories.slice(0,5).map(v=>`<div class="victory-item">${v.text}<span class="vic-date">${v.date}</span></div>`).join('');
 }
-
 function renderDesamparoVic(){
-  const list=document.getElementById('desamparo-list');
-  if(!list)return;
+  const list=document.getElementById('desamparo-list');if(!list)return;
   list.innerHTML=st.desamparoVic.slice(0,5).map(v=>`<div class="victory-item">${v.text}<span class="vic-date">${v.date}</span></div>`).join('');
 }
-
 function saveVictory(){
-  const inp=document.getElementById('victory-input');
-  const txt=inp.value.trim();if(!txt)return;
+  const inp=document.getElementById('victory-input');const txt=inp.value.trim();if(!txt)return;
   st.victories.unshift({text:txt,date:todayStr()});
   if(st.victories.length>30)st.victories=st.victories.slice(0,30);
   inp.value='';save();renderVictories();
@@ -516,52 +520,34 @@ function saveVictory(){
 
 function renderDesamparoChart(){
   const now=new Date();
-  const month=now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
-  document.getElementById('chart-month').textContent=month;
-  const daysInMonth=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
-  const today=now.getDate();
-  const bars=document.getElementById('chart-bars');
-  bars.innerHTML='';
+  document.getElementById('chart-month').textContent=now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  const today=now.getDate();const bars=document.getElementById('chart-bars');bars.innerHTML='';
   let consegui=0,naoconseguiu=0;
   for(let d=1;d<=Math.min(today,30);d++){
     const dateStr=new Date(now.getFullYear(),now.getMonth(),d).toLocaleDateString('pt-BR');
     const rec=st.desamparoHistory.find(h=>h.date===dateStr);
-    const isTodayFlag=(d===today);
-    const todayRec=isTodayFlag?st.desamparo:null;
-    const result=isTodayFlag?todayRec:(rec?rec.result:null);
+    const result=(d===today)?st.desamparo:(rec?rec.result:null);
     let cls='empty',h=20;
     if(result==='consegui'){cls='achieved';h=70;consegui++;}
     else if(result==='nao'){cls='missed';h=40;naoconseguiu++;}
     bars.innerHTML+=`<div class="chart-bar-wrap"><div class="chart-bar ${cls}" style="height:${h}px"></div><div class="chart-day">${d}</div></div>`;
   }
-  const total=consegui+naoconseguiu;
-  const pct=total>0?Math.round((consegui/total)*100):0;
+  const total=consegui+naoconseguiu;const pct=total>0?Math.round((consegui/total)*100):0;
   document.getElementById('chart-summary').textContent=total>0?`${consegui} de ${total} dias registrados — ${pct}% de tolerância ao desamparo este mês.`:'Nenhum registro ainda este mês.';
   renderDesamparoVic();
 }
 
 function renderReport(){
   const now=new Date();
-  const month=now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
-  document.getElementById('chart-month2').textContent=month;
-  const daysInMonth=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
-  const today=now.getDate();
-  const bars=document.getElementById('chart-bars2');
-  bars.innerHTML='';
+  document.getElementById('chart-month2').textContent=now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  const today=now.getDate();const bars=document.getElementById('chart-bars2');bars.innerHTML='';
   let excellent=0,good=0,reg=0,total=0;
   for(let d=1;d<=Math.min(today,30);d++){
     const dateStr=new Date(now.getFullYear(),now.getMonth(),d).toLocaleDateString('pt-BR');
     const rec=st.history.find(h=>h.date===dateStr);
-    const isTodayFlag=(d===today);
-    const pts=isTodayFlag?totalPts():(rec?rec.pts:null);
+    const pts=(d===today)?totalPts():(rec?rec.pts:null);
     let cls='empty',h=20,color='var(--border)';
-    if(pts!==null){
-      total++;
-      if(pts>=90){cls='achieved';h=80;color='var(--green)';excellent++;}
-      else if(pts>=70){cls='achieved';h=60;color='#EF9F27';good++;}
-      else if(pts>=40){cls='achieved';h=40;color='#D85A30';reg++;}
-      else{cls='missed';h=20;color='#E24B4A';}
-    }
+    if(pts!==null){total++;if(pts>=90){cls='achieved';h=80;color='var(--green)';excellent++;}else if(pts>=70){cls='achieved';h=60;color='#EF9F27';good++;}else if(pts>=40){cls='achieved';h=40;color='#D85A30';reg++;}else{cls='missed';h=20;color='#E24B4A';}}
     bars.innerHTML+=`<div class="chart-bar-wrap"><div class="chart-bar ${cls}" style="height:${h}px;background:${color}"></div><div class="chart-day">${d}</div></div>`;
   }
   document.getElementById('report-summary').textContent=total>0?`${excellent} dias excelentes, ${good} bons, ${reg} regulares este mês.`:'Nenhum registro ainda.';
