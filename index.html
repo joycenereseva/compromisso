@@ -28,7 +28,7 @@
   .conf-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .conf-label { font-size: 12px; color: var(--text2); }
   .conf-pct { font-size: 14px; font-weight: 500; color: var(--text); }
-  .bar-track { height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .bar-track { height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; margin-bottom: 4px; }
   .bar-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.6s ease; }
   .conf-status { font-size: 11px; color: var(--text3); margin-top: 6px; }
   .section { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 8px; overflow: hidden; }
@@ -53,12 +53,60 @@
   .temp-btn.t-amarela.sel { background: #FAEEDA; border-color: #EF9F27; color: #633806; }
   .temp-btn.t-laranja.sel { background: #FAECE7; border-color: #D85A30; color: #4A1B0C; }
   .temp-btn.t-vermelha.sel { background: #FCEBEB; border-color: #E24B4A; color: #501313; }
+  .temp-response { margin-top: 10px; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 12px; line-height: 1.6; display: none; }
+  .temp-response.show { display: block; }
+  .temp-response-title { font-weight: 600; margin-bottom: 4px; font-size: 12px; }
+  .temp-response.azul { background: #E6F1FB; border-left: 2px solid #378ADD; color: #0C447C; }
+  .temp-response.verde { background: var(--green-light); border-left: 2px solid var(--green); color: var(--green-dark); }
+  .temp-response.amarela { background: #FAEEDA; border-left: 2px solid #EF9F27; color: #633806; }
+  .temp-response.laranja { background: #FAECE7; border-left: 2px solid #D85A30; color: #4A1B0C; }
+  .temp-response.vermelha { background: #FCEBEB; border-left: 2px solid #E24B4A; color: #501313; }
   .evit-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
   .evit-btn { padding: 9px 8px; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; background: transparent; color: var(--text); text-align: center; font-family: var(--font); line-height: 1.3; }
+  .evit-btn:hover { background: var(--bg2); }
   .evit-btn.sel-nao { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
   .evit-btn.sel-sim { background: #FAECE7; border-color: #D85A30; color: #993C1D; }
   .evit-input { width: 100%; font-size: 12px; padding: 8px 10px; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); background: var(--bg2); color: var(--text); resize: none; min-height: 52px; display: none; font-family: var(--font); margin-top: 6px; }
   .evit-input.show { display: block; }
+  .evit-response { margin-top: 10px; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 12px; line-height: 1.6; display: none; }
+  .evit-response.positive { background: var(--green-light); border-left: 2px solid var(--green); color: var(--green-dark); }
+  .evit-response.action { background: #FAEEDA; border-left: 2px solid #EF9F27; color: #633806; }
+  .evit-response.show { display: block; }
+  .evit-actions { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; display: none; }
+  .evit-actions.show { display: flex; }
+  .evit-action-btn { padding: 8px 12px; background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius-sm); font-size: 12px; color: var(--text); cursor: pointer; text-align: left; font-family: var(--font); }
+  .evit-action-btn:hover { background: var(--bg2); }
+  .evit-done { font-size: 12px; color: var(--green); padding: 8px 0; display: none; }
+
+  /* DESAMPARO BLOCK */
+  .desamparo-block { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 8px; padding: 1rem 1.25rem; }
+  .desamparo-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .desamparo-sub { font-size: 11px; color: var(--text3); margin-bottom: 10px; }
+  .desamparo-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .des-btn { padding: 9px 8px; border: 0.5px solid var(--border2); border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; background: transparent; color: var(--text); text-align: center; font-family: var(--font); line-height: 1.3; }
+  .des-btn.sel-consegui { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+  .des-btn.sel-nao { background: #FAECE7; border-color: #D85A30; color: #993C1D; }
+  .des-response { margin-top: 8px; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 12px; line-height: 1.6; display: none; }
+  .des-response.show { display: block; }
+  .des-response.positive { background: var(--green-light); border-left: 2px solid var(--green); color: var(--green-dark); }
+  .des-response.support { background: #FAEEDA; border-left: 2px solid #EF9F27; color: #633806; }
+
+  /* GRAFICO */
+  .chart-block { background: #fff; border-radius: var(--radius); border: 0.5px solid var(--border); margin-bottom: 8px; padding: 1rem 1.25rem; }
+  .chart-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .chart-month { font-size: 11px; color: var(--text3); }
+  .chart-bars { display: flex; align-items: flex-end; gap: 4px; height: 80px; margin-bottom: 8px; }
+  .chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; height: 100%; justify-content: flex-end; }
+  .chart-bar { width: 100%; border-radius: 3px 3px 0 0; min-height: 3px; transition: height 0.4s ease; }
+  .chart-bar.achieved { background: var(--green); }
+  .chart-bar.missed { background: #E24B4A; opacity: 0.5; }
+  .chart-bar.empty { background: var(--border); }
+  .chart-day { font-size: 9px; color: var(--text3); }
+  .chart-legend { display: flex; gap: 12px; margin-top: 8px; }
+  .chart-leg { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--text3); }
+  .chart-leg-dot { width: 8px; height: 8px; border-radius: 2px; }
+  .chart-summary { font-size: 12px; color: var(--text2); margin-top: 8px; padding: 8px 10px; background: var(--bg2); border-radius: var(--radius-sm); }
+
   .score-display { background: var(--bg-dark); border-radius: var(--radius); padding: 1.5rem 1.25rem; margin: 1rem 0; text-align: center; }
   .score-big { font-size: 44px; font-weight: 500; color: #fff; }
   .score-max { font-size: 18px; color: var(--green-pale); }
@@ -80,6 +128,11 @@
   .crisis-opt { padding: 9px 12px; background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; color: var(--text); cursor: pointer; text-align: left; font-family: var(--font); }
   .crisis-opt:hover { background: var(--bg2); }
   .crisis-done { font-size: 13px; color: var(--green); padding: 8px 0; display: none; line-height: 1.5; }
+  .tab-nav { display: flex; gap: 6px; margin-bottom: 1rem; }
+  .tab-btn { flex: 1; padding: 8px 4px; font-size: 12px; border: 0.5px solid var(--border); border-radius: var(--radius-sm); background: transparent; cursor: pointer; font-family: var(--font); color: var(--text2); text-align: center; }
+  .tab-btn.active { background: var(--bg-dark); color: #fff; border-color: var(--bg-dark); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
 </style>
 </head>
 <body>
@@ -89,115 +142,255 @@
     <div class="app-title">Compromisso Joyce <span class="level-badge" id="level-badge">Nível 1</span></div>
     <div class="anchor-phrase">"Já provei que consigo. Minha sequência continua."</div>
   </div>
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-label">Pontos hoje</div><div class="stat-value" id="pts-today">0</div><div class="stat-sub">de 120</div></div>
-    <div class="stat-card"><div class="stat-label">Sequência</div><div class="stat-value" id="streak-val">0</div><div class="stat-sub">dias seguidos</div></div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab('hoje')">Hoje</button>
+    <button class="tab-btn" onclick="showTab('desamparo')">Desamparo</button>
+    <button class="tab-btn" onclick="showTab('relatorio')">Relatório</button>
   </div>
-  <div class="conf-card">
-    <div class="conf-row"><span class="conf-label">Índice de confiança (30 dias)</span><span class="conf-pct" id="conf-pct">–</span></div>
-    <div class="bar-track"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
-    <div class="conf-status" id="conf-status">Sem dados ainda — complete o primeiro dia</div>
-  </div>
-  <div class="section">
-    <div class="section-header"><span class="section-title">Carreira</span><span class="section-pts" id="pts-carreira">0 / 30 pts</span></div>
-    <div class="checklist">
-      <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Apliquei o conhecimento de algum curso</span></div><span class="daily-pts">10 pts</span></label>
-      <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Produzi algo do meu projeto</span></div><span class="daily-pts">10 pts</span></label>
-      <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Planejei ou organizei meu trabalho</span></div><span class="daily-pts">10 pts</span></label>
+
+  <!-- TAB HOJE -->
+  <div class="tab-content active" id="tab-hoje">
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-label">Pontos hoje</div><div class="stat-value" id="pts-today">0</div><div class="stat-sub">de 120</div></div>
+      <div class="stat-card"><div class="stat-label">Sequência</div><div class="stat-value" id="streak-val">0</div><div class="stat-sub">dias seguidos</div></div>
+    </div>
+    <div class="conf-card">
+      <div class="conf-row"><span class="conf-label">Índice de confiança (30 dias)</span><span class="conf-pct" id="conf-pct">–</span></div>
+      <div class="bar-track"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
+      <div class="conf-status" id="conf-status">Sem dados ainda — complete o primeiro dia</div>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-title">Carreira</span><span class="section-pts" id="pts-carreira">0 / 30 pts</span></div>
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Apliquei o conhecimento de algum curso</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Produzi algo do meu projeto</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Planejei ou organizei meu trabalho</span></div><span class="daily-pts">10 pts</span></label>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-title">Saúde</span><span class="section-pts" id="pts-saude">0 / 30 pts</span></div>
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Treinei</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Me alimentei adequadamente</span><span class="check-meta">Meta: 3 refeições corretas (seg–sáb)</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Dormi dentro da meta</span><span class="check-meta">Meta: mínimo 7h por noite</span></div><span class="daily-pts">10 pts</span></label>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-title">Estudos</span><span class="section-pts" id="pts-estudos">0 / 30 pts</span></div>
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Li algo</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Estudei a pós-graduação</span><span class="check-meta">Meta: mínimo 2 aulas por semana</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Aprendi algo novo</span></div><span class="daily-pts">10 pts</span></label>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-header"><span class="section-title">Vida pessoal</span><span class="section-pts" id="pts-pessoal">0 / 30 pts</span></div>
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Organizei algo da casa</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Passeei com a Meg</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Fiz algo para mim</span></div><span class="daily-pts">10 pts</span></label>
+      </div>
+    </div>
+    <div class="tcc-block">
+      <div class="tcc-title">Temperatura emocional de hoje</div>
+      <div class="temp-grid">
+        <button class="temp-btn t-azul" onclick="setTemp('azul',this)">Azul<br><span style="font-size:10px">neutro</span></button>
+        <button class="temp-btn t-verde" onclick="setTemp('verde',this)">Verde<br><span style="font-size:10px">leve</span></button>
+        <button class="temp-btn t-amarela" onclick="setTemp('amarela',this)">Amarela<br><span style="font-size:10px">moderado</span></button>
+        <button class="temp-btn t-laranja" onclick="setTemp('laranja',this)">Laranja<br><span style="font-size:10px">intenso</span></button>
+        <button class="temp-btn t-vermelha" onclick="setTemp('vermelha',this)">Vermelha<br><span style="font-size:10px">no limite</span></button>
+      </div>
+      <div class="temp-response azul" id="temp-resp-azul">
+        <div class="temp-response-title">Abordar — Azul</div>
+        Você está regulada. Aproveite para avançar em algo que importa — estudo, consultoria, leitura. Esse é o melhor momento para agir com o cérebro pensante no comando.
+      </div>
+      <div class="temp-response verde" id="temp-resp-verde">
+        <div class="temp-response-title">Abordar — Verde</div>
+        Leve desconforto presente. Nomeie o que está sentindo e continue. Não precisa resolver — só observar e seguir em frente. Você está no controle.
+      </div>
+      <div class="temp-response amarela" id="temp-resp-amarela">
+        <div class="temp-response-title">Abordar — Amarela</div>
+        Atenção: sua amígdala está acordada. Antes de agir, respire — 4 dentro, 7 segura, 8 fora. Depois pergunte: o que seria a ação oposta agora? Se a emoção quer que você evite algo, aproxime-se devagar. Pequenas vitórias primeiro.
+      </div>
+      <div class="temp-response laranja" id="temp-resp-laranja">
+        <div class="temp-response-title">Abordar — Laranja</div>
+        Esse é o momento de treinar. Não tome decisões grandes agora. Escolha uma ação pequena e oposta ao que a emoção quer: se quer fugir, fica. Se quer mandar mensagem, espera 20 minutos. Se quer parar, faz só mais uma coisa pequena. O treino acontece aqui.
+      </div>
+      <div class="temp-response vermelha" id="temp-resp-vermelha">
+        <div class="temp-response-title">Abordar — Vermelha</div>
+        Temperatura vermelha — não tente treinar ação oposta agora. O cérebro emocional está no comando total. Primeiro: água, respire, mova o corpo. Espere a temperatura baixar para laranja antes de agir em qualquer coisa importante. Nenhuma decisão grande no vermelho.
+      </div>
+    </div>
+    <div class="tcc-block">
+      <div class="tcc-title">Registro de evitação</div>
+      <div class="evit-btns">
+        <button class="evit-btn" id="evit-nao" onclick="setEvit('nao')">Não evitei nada importante</button>
+        <button class="evit-btn" id="evit-sim" onclick="setEvit('sim')">Evitei algo importante</button>
+      </div>
+      <textarea class="evit-input" id="evit-text" placeholder="O que você evitou?" onblur="saveEvit()"></textarea>
+      <div class="evit-response positive" id="evit-pos">Registrado no seu banco de provas. Você enfrentou o que precisava hoje.</div>
+      <div class="evit-response action" id="evit-neg">Tudo bem. Qual ação de 10 minutos você pode fazer agora?</div>
+      <div class="evit-actions" id="evit-actions">
+        <button class="evit-action-btn" onclick="doneEvitAction(this)">Ler 5 páginas</button>
+        <button class="evit-action-btn" onclick="doneEvitAction(this)">Organizar um espaço pequeno</button>
+        <button class="evit-action-btn" onclick="doneEvitAction(this)">Escrever o que sinto agora</button>
+        <button class="evit-action-btn" onclick="doneEvitAction(this)">Planejar amanhã</button>
+        <button class="evit-action-btn" onclick="doneEvitAction(this)">Respiração 4-7-8 por 3 minutos</button>
+      </div>
+      <div class="evit-done" id="evit-done">Você acabou de fortalecer sua confiança mais do que fortalecê-la pensando sobre ela.</div>
+    </div>
+    <div class="score-display">
+      <div><span class="score-big" id="score-final">0</span><span class="score-max"> / 120</span></div>
+      <div class="score-msg" id="score-msg">Complete o dia para ver sua avaliação.</div>
+    </div>
+    <div class="victory-section">
+      <div class="victory-title">Provas de que estou evoluindo</div>
+      <textarea class="victory-input" id="victory-input" placeholder="Qual foi sua principal vitória hoje?"></textarea>
+      <button class="victory-save" onclick="saveVictory()">Salvar vitória</button>
+      <div class="victory-list" id="victory-list"></div>
+    </div>
+    <button class="crisis-btn" onclick="toggleCrisis()">Estou me sentindo insegura</button>
+    <div class="crisis-panel" id="crisis-panel">
+      <div class="crisis-q">Na musculação você não foge do peso — adiciona 2kg e aguenta. O que são seus 2kg agora?</div>
+      <div class="crisis-opts">
+        <button class="crisis-opt" onclick="doneCrisis()">Ler 5 páginas</button>
+        <button class="crisis-opt" onclick="doneCrisis()">Organizar a mesa</button>
+        <button class="crisis-opt" onclick="doneCrisis()">Caminhar</button>
+        <button class="crisis-opt" onclick="doneCrisis()">Planejar amanhã</button>
+        <button class="crisis-opt" onclick="doneCrisis()">Fazer um exercício</button>
+      </div>
+      <div class="crisis-done" id="crisis-done">Você acabou de fortalecer sua confiança mais do que fortalecê-la pensando sobre ela.</div>
     </div>
   </div>
-  <div class="section">
-    <div class="section-header"><span class="section-title">Saúde</span><span class="section-pts" id="pts-saude">0 / 30 pts</span></div>
-    <div class="checklist">
-      <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Treinei</span></div><span class="daily-pts">10 pts</span></label>
-      <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Me alimentei adequadamente</span><span class="check-meta">Meta: 3 refeições corretas (seg–sáb)</span></div><span class="daily-pts">10 pts</span></label>
-      <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Dormi dentro da meta</span><span class="check-meta">Meta: mínimo 7h por noite</span></div><span class="daily-pts">10 pts</span></label>
+
+  <!-- TAB DESAMPARO -->
+  <div class="tab-content" id="tab-desamparo">
+    <div class="desamparo-block">
+      <div class="desamparo-title">Tolerância ao desamparo</div>
+      <div class="desamparo-sub">10 a 15 minutos antes de dormir — combinado com Amanda</div>
+      <div class="desamparo-btns">
+        <button class="des-btn" id="des-consegui" onclick="setDesamparo('consegui')">Consegui ficar comigo mesma</button>
+        <button class="des-btn" id="des-nao" onclick="setDesamparo('nao')">Não consegui hoje</button>
+      </div>
+      <div class="des-response positive" id="des-pos">Registrado. Você ficou com o desconforto sem fugir. Isso é exatamente o treino. Cada vez que você faz isso, seu sistema nervoso aprende que você sobrevive ao silêncio.</div>
+      <div class="des-response support" id="des-neg">Tudo bem. Não conseguir hoje não apaga os dias que você conseguiu. O treino continua amanhã. O que aconteceu que dificultou?</div>
+      <textarea class="evit-input show" id="des-note" placeholder="Como foi? (opcional)" onblur="saveDesNote()" style="margin-top:10px"></textarea>
+    </div>
+    <div class="chart-block">
+      <div class="chart-title">
+        <span>Minha evolução — desamparo</span>
+        <span class="chart-month" id="chart-month"></span>
+      </div>
+      <div class="chart-bars" id="chart-bars"></div>
+      <div class="chart-legend">
+        <div class="chart-leg"><div class="chart-leg-dot" style="background:var(--green)"></div>Consegui</div>
+        <div class="chart-leg"><div class="chart-leg-dot" style="background:#E24B4A; opacity:0.5"></div>Não consegui</div>
+        <div class="chart-leg"><div class="chart-leg-dot" style="background:var(--border)"></div>Sem registro</div>
+      </div>
+      <div class="chart-summary" id="chart-summary"></div>
+    </div>
+    <div class="victory-section">
+      <div class="victory-title">Provas de que estou me regulando</div>
+      <div class="victory-list" id="desamparo-list"></div>
     </div>
   </div>
-  <div class="section">
-    <div class="section-header"><span class="section-title">Estudos</span><span class="section-pts" id="pts-estudos">0 / 30 pts</span></div>
-    <div class="checklist">
-      <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Li algo</span></div><span class="daily-pts">10 pts</span></label>
-      <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Estudei a pós-graduação</span><span class="check-meta">Meta: mínimo 2 aulas por semana</span></div><span class="daily-pts">10 pts</span></label>
-      <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Aprendi algo novo</span></div><span class="daily-pts">10 pts</span></label>
+
+  <!-- TAB RELATÓRIO -->
+  <div class="tab-content" id="tab-relatorio">
+    <div class="chart-block">
+      <div class="chart-title">
+        <span>Pontuação diária — este mês</span>
+        <span class="chart-month" id="chart-month2"></span>
+      </div>
+      <div class="chart-bars" id="chart-bars2"></div>
+      <div class="chart-legend">
+        <div class="chart-leg"><div class="chart-leg-dot" style="background:var(--green)"></div>Excelente (90+)</div>
+        <div class="chart-leg"><div class="chart-leg-dot" style="background:#EF9F27"></div>Bom (70+)</div>
+        <div class="chart-leg"><div class="chart-leg-dot" style="background:#D85A30; opacity:0.6"></div>Regular</div>
+      </div>
+      <div class="chart-summary" id="report-summary"></div>
     </div>
-  </div>
-  <div class="section">
-    <div class="section-header"><span class="section-title">Vida pessoal</span><span class="section-pts" id="pts-pessoal">0 / 30 pts</span></div>
-    <div class="checklist">
-      <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Organizei algo da casa</span></div><span class="daily-pts">10 pts</span></label>
-      <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Passeei com a Meg</span></div><span class="daily-pts">10 pts</span></label>
-      <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Fiz algo para mim</span></div><span class="daily-pts">10 pts</span></label>
+    <div class="conf-card">
+      <div class="conf-row"><span class="conf-label">Índice de confiança geral</span><span class="conf-pct" id="rep-conf">–</span></div>
+      <div class="bar-track"><div class="bar-fill" id="rep-conf-bar" style="width:0%"></div></div>
+      <div class="conf-status" id="rep-conf-status"></div>
     </div>
-  </div>
-  <div class="tcc-block">
-    <div class="tcc-title">Temperatura emocional de hoje</div>
-    <div class="temp-grid">
-      <button class="temp-btn t-azul" onclick="setTemp('azul',this)">Azul<br><span style="font-size:10px">neutro</span></button>
-      <button class="temp-btn t-verde" onclick="setTemp('verde',this)">Verde<br><span style="font-size:10px">leve</span></button>
-      <button class="temp-btn t-amarela" onclick="setTemp('amarela',this)">Amarela<br><span style="font-size:10px">moderado</span></button>
-      <button class="temp-btn t-laranja" onclick="setTemp('laranja',this)">Laranja<br><span style="font-size:10px">intenso</span></button>
-      <button class="temp-btn t-vermelha" onclick="setTemp('vermelha',this)">Vermelha<br><span style="font-size:10px">no limite</span></button>
+    <div class="conf-card">
+      <div class="conf-row"><span class="conf-label">Tolerância ao desamparo</span><span class="conf-pct" id="rep-des">–</span></div>
+      <div class="bar-track"><div class="bar-fill" id="rep-des-bar" style="width:0%" style="background:#9B59B6"></div></div>
+      <div class="conf-status" id="rep-des-status"></div>
     </div>
-  </div>
-  <div class="tcc-block">
-    <div class="tcc-title">Registro de evitação</div>
-    <div class="evit-btns">
-      <button class="evit-btn" id="evit-nao" onclick="setEvit('nao')">Não evitei nada importante</button>
-      <button class="evit-btn" id="evit-sim" onclick="setEvit('sim')">Evitei algo importante</button>
-    </div>
-    <textarea class="evit-input" id="evit-text" placeholder="O que você evitou?" onblur="saveEvit()"></textarea>
-  </div>
-  <div class="score-display">
-    <div><span class="score-big" id="score-final">0</span><span class="score-max"> / 120</span></div>
-    <div class="score-msg" id="score-msg">Complete o dia para ver sua avaliação.</div>
-  </div>
-  <div class="victory-section">
-    <div class="victory-title">Provas de que estou evoluindo</div>
-    <textarea class="victory-input" id="victory-input" placeholder="Qual foi sua principal vitória hoje?"></textarea>
-    <button class="victory-save" onclick="saveVictory()">Salvar vitória</button>
-    <div class="victory-list" id="victory-list"></div>
-  </div>
-  <button class="crisis-btn" onclick="toggleCrisis()">Estou me sentindo insegura</button>
-  <div class="crisis-panel" id="crisis-panel">
-    <div class="crisis-q">Qual ação prática de até 10 minutos você pode fazer agora?</div>
-    <div class="crisis-opts">
-      <button class="crisis-opt" onclick="doneCrisis()">Ler 5 páginas</button>
-      <button class="crisis-opt" onclick="doneCrisis()">Organizar a mesa</button>
-      <button class="crisis-opt" onclick="doneCrisis()">Caminhar</button>
-      <button class="crisis-opt" onclick="doneCrisis()">Planejar amanhã</button>
-      <button class="crisis-opt" onclick="doneCrisis()">Fazer um exercício</button>
-    </div>
-    <div class="crisis-done" id="crisis-done">Você acabou de fortalecer sua confiança mais do que fortalecê-la pensando sobre ela.</div>
   </div>
 </div>
+
 <script>
-const SK='cj_v3';
-let st={pts:{carreira:0,saude:0,estudos:0,pessoal:0},temp:null,evit:null,evitText:'',victories:[],history:[],lastDate:null,streak:0};
+const SK='cj_v4';
+let st={
+  pts:{carreira:0,saude:0,estudos:0,pessoal:0},
+  temp:null,evit:null,evitText:'',
+  desamparo:null,desNote:'',
+  victories:[],desamparoVic:[],
+  history:[],desamparoHistory:[],
+  lastDate:null,streak:0
+};
+
 function todayStr(){return new Date().toLocaleDateString('pt-BR');}
 function load(){try{const r=localStorage.getItem(SK);if(r)st=JSON.parse(r);}catch(e){}}
 function save(){try{localStorage.setItem(SK,JSON.stringify(st));}catch(e){}}
 function totalPts(){return Object.values(st.pts).reduce((a,b)=>a+b,0);}
+
+function showTab(name){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.target.classList.add('active');
+  if(name==='desamparo')renderDesamparoChart();
+  if(name==='relatorio')renderReport();
+}
+
 function init(){
   const today=todayStr();
   document.getElementById('date-display').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
   if(st.lastDate&&st.lastDate!==today){
     const y=new Date();y.setDate(y.getDate()-1);
     st.streak=st.lastDate===y.toLocaleDateString('pt-BR')?(st.streak||0)+1:0;
-    st.history.push({date:st.lastDate,pts:totalPts()});
+    st.history.push({date:st.lastDate,pts:totalPts(),temp:st.temp});
+    st.desamparoHistory.push({date:st.lastDate,result:st.desamparo,note:st.desNote});
     if(st.history.length>30)st.history=st.history.slice(-30);
+    if(st.desamparoHistory.length>30)st.desamparoHistory=st.desamparoHistory.slice(-30);
     st.pts={carreira:0,saude:0,estudos:0,pessoal:0};
-    st.temp=null;st.evit=null;st.evitText='';st.lastDate=today;
+    st.temp=null;st.evit=null;st.evitText='';
+    st.desamparo=null;st.desNote='';
+    st.lastDate=today;
     document.querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=false;});
     save();
   }else if(!st.lastDate){st.lastDate=today;save();}
-  if(st.temp)document.querySelectorAll('.temp-btn').forEach(b=>{if(b.classList.contains('t-'+st.temp))b.classList.add('sel');});
+  if(st.temp){
+    document.querySelectorAll('.temp-btn').forEach(b=>{if(b.classList.contains('t-'+st.temp))b.classList.add('sel');});
+    const resp=document.getElementById('temp-resp-'+st.temp);
+    if(resp)resp.classList.add('show');
+  }
   if(st.evit){
     document.getElementById('evit-'+st.evit).classList.add('sel-'+st.evit);
-    if(st.evit==='sim'){document.getElementById('evit-text').classList.add('show');document.getElementById('evit-text').value=st.evitText||'';}
+    if(st.evit==='sim'){
+      document.getElementById('evit-text').classList.add('show');
+      document.getElementById('evit-text').value=st.evitText||'';
+      document.getElementById('evit-neg').classList.add('show');
+      document.getElementById('evit-actions').classList.add('show');
+    } else {
+      document.getElementById('evit-pos').classList.add('show');
+    }
+  }
+  if(st.desamparo){
+    document.getElementById('des-'+st.desamparo).classList.add('sel-'+st.desamparo);
+    if(st.desamparo==='consegui')document.getElementById('des-pos').classList.add('show');
+    else document.getElementById('des-neg').classList.add('show');
+    document.getElementById('des-note').value=st.desNote||'';
   }
   renderAll();
 }
+
 function updatePts(cb){
   const area=cb.dataset.area,pts=parseInt(cb.dataset.pts);
   const lbl=cb.closest('label').querySelector('.check-label');
@@ -205,6 +398,7 @@ function updatePts(cb){
   else{st.pts[area]=Math.max(0,(st.pts[area]||0)-pts);lbl.classList.remove('done');}
   save();renderAll();
 }
+
 function renderAll(){
   const total=totalPts();
   document.getElementById('pts-today').textContent=total;
@@ -219,7 +413,9 @@ function renderAll(){
   document.getElementById('conf-status').textContent=getConfStatus(conf,all.length);
   document.getElementById('level-badge').textContent=getLevel(st.streak||0,conf);
   renderVictories();
+  renderDesamparoVic();
 }
+
 function getMsg(p){
   if(p>=90)return'Hoje você acumulou evidências. Você não venceu porque se sentiu confiante — ficou mais confiante porque agiu.';
   if(p>=70)return'Continue. O progresso discreto costuma construir resultados duradouros.';
@@ -241,31 +437,143 @@ function getLevel(streak,conf){
   if(conf>=40||streak>=1)return'Nível 2 — Consistente';
   return'Nível 1 — Recomeçando';
 }
+
 function setTemp(val,btn){
   document.querySelectorAll('.temp-btn').forEach(b=>b.classList.remove('sel'));
   btn.classList.add('sel');st.temp=val;save();
+  document.querySelectorAll('.temp-response').forEach(r=>r.classList.remove('show'));
+  document.getElementById('temp-resp-'+val).classList.add('show');
 }
+
 function setEvit(val){
-  st.evit=val;
+  st.evit=val;save();
   document.getElementById('evit-nao').className='evit-btn'+(val==='nao'?' sel-nao':'');
   document.getElementById('evit-sim').className='evit-btn'+(val==='sim'?' sel-sim':'');
+  document.getElementById('evit-pos').classList.remove('show');
+  document.getElementById('evit-neg').classList.remove('show');
+  document.getElementById('evit-actions').classList.remove('show');
   const inp=document.getElementById('evit-text');
-  if(val==='sim')inp.classList.add('show');
-  else{inp.classList.remove('show');st.evitText='';}
-  save();
+  if(val==='sim'){
+    inp.classList.add('show');
+    document.getElementById('evit-neg').classList.add('show');
+    document.getElementById('evit-actions').classList.add('show');
+  } else {
+    inp.classList.remove('show');
+    st.evitText='';
+    document.getElementById('evit-pos').classList.add('show');
+    st.victories.unshift({text:'Não evitei nada importante hoje.',date:todayStr(),type:'evit'});
+    save();renderVictories();
+  }
 }
+
 function saveEvit(){st.evitText=document.getElementById('evit-text').value;save();}
-function saveVictory(){
-  const inp=document.getElementById('victory-input');
-  const txt=inp.value.trim();if(!txt)return;
-  st.victories.unshift({text:txt,date:todayStr()});
-  if(st.victories.length>20)st.victories=st.victories.slice(0,20);
-  inp.value='';save();renderVictories();
+
+function doneEvitAction(btn){
+  document.getElementById('evit-actions').style.display='none';
+  document.getElementById('evit-done').style.display='block';
+  st.victories.unshift({text:'Evitei algo, mas agi mesmo assim: '+btn.textContent,date:todayStr(),type:'evit'});
+  save();renderVictories();
 }
+
+function setDesamparo(val){
+  st.desamparo=val;save();
+  document.getElementById('des-consegui').className='des-btn'+(val==='consegui'?' sel-consegui':'');
+  document.getElementById('des-nao').className='des-btn'+(val==='nao'?' sel-nao':'');
+  document.getElementById('des-pos').classList.remove('show');
+  document.getElementById('des-neg').classList.remove('show');
+  if(val==='consegui'){
+    document.getElementById('des-pos').classList.add('show');
+    st.desamparoVic.unshift({text:'Fiquei comigo mesma por 10-15 minutos antes de dormir.',date:todayStr()});
+    save();renderDesamparoVic();
+  } else {
+    document.getElementById('des-neg').classList.add('show');
+  }
+}
+
+function saveDesNote(){st.desNote=document.getElementById('des-note').value;save();}
+
 function renderVictories(){
   const list=document.getElementById('victory-list');
   list.innerHTML=st.victories.slice(0,5).map(v=>`<div class="victory-item">${v.text}<span class="vic-date">${v.date}</span></div>`).join('');
 }
+
+function renderDesamparoVic(){
+  const list=document.getElementById('desamparo-list');
+  if(!list)return;
+  list.innerHTML=st.desamparoVic.slice(0,5).map(v=>`<div class="victory-item">${v.text}<span class="vic-date">${v.date}</span></div>`).join('');
+}
+
+function saveVictory(){
+  const inp=document.getElementById('victory-input');
+  const txt=inp.value.trim();if(!txt)return;
+  st.victories.unshift({text:txt,date:todayStr()});
+  if(st.victories.length>30)st.victories=st.victories.slice(0,30);
+  inp.value='';save();renderVictories();
+}
+
+function renderDesamparoChart(){
+  const now=new Date();
+  const month=now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  document.getElementById('chart-month').textContent=month;
+  const daysInMonth=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
+  const today=now.getDate();
+  const bars=document.getElementById('chart-bars');
+  bars.innerHTML='';
+  let consegui=0,naoconseguiu=0;
+  for(let d=1;d<=Math.min(today,30);d++){
+    const dateStr=new Date(now.getFullYear(),now.getMonth(),d).toLocaleDateString('pt-BR');
+    const rec=st.desamparoHistory.find(h=>h.date===dateStr);
+    const isTodayFlag=(d===today);
+    const todayRec=isTodayFlag?st.desamparo:null;
+    const result=isTodayFlag?todayRec:(rec?rec.result:null);
+    let cls='empty',h=20;
+    if(result==='consegui'){cls='achieved';h=70;consegui++;}
+    else if(result==='nao'){cls='missed';h=40;naoconseguiu++;}
+    bars.innerHTML+=`<div class="chart-bar-wrap"><div class="chart-bar ${cls}" style="height:${h}px"></div><div class="chart-day">${d}</div></div>`;
+  }
+  const total=consegui+naoconseguiu;
+  const pct=total>0?Math.round((consegui/total)*100):0;
+  document.getElementById('chart-summary').textContent=total>0?`${consegui} de ${total} dias registrados — ${pct}% de tolerância ao desamparo este mês.`:'Nenhum registro ainda este mês.';
+  renderDesamparoVic();
+}
+
+function renderReport(){
+  const now=new Date();
+  const month=now.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+  document.getElementById('chart-month2').textContent=month;
+  const daysInMonth=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
+  const today=now.getDate();
+  const bars=document.getElementById('chart-bars2');
+  bars.innerHTML='';
+  let excellent=0,good=0,reg=0,total=0;
+  for(let d=1;d<=Math.min(today,30);d++){
+    const dateStr=new Date(now.getFullYear(),now.getMonth(),d).toLocaleDateString('pt-BR');
+    const rec=st.history.find(h=>h.date===dateStr);
+    const isTodayFlag=(d===today);
+    const pts=isTodayFlag?totalPts():(rec?rec.pts:null);
+    let cls='empty',h=20,color='var(--border)';
+    if(pts!==null){
+      total++;
+      if(pts>=90){cls='achieved';h=80;color='var(--green)';excellent++;}
+      else if(pts>=70){cls='achieved';h=60;color='#EF9F27';good++;}
+      else if(pts>=40){cls='achieved';h=40;color='#D85A30';reg++;}
+      else{cls='missed';h=20;color='#E24B4A';}
+    }
+    bars.innerHTML+=`<div class="chart-bar-wrap"><div class="chart-bar ${cls}" style="height:${h}px;background:${color}"></div><div class="chart-day">${d}</div></div>`;
+  }
+  document.getElementById('report-summary').textContent=total>0?`${excellent} dias excelentes, ${good} bons, ${reg} regulares este mês.`:'Nenhum registro ainda.';
+  const allDays=[...st.history.map(h=>h.pts),totalPts()];
+  const conf=allDays.length>0?Math.round((allDays.filter(p=>p>=10).length/allDays.length)*100):0;
+  document.getElementById('rep-conf').textContent=conf+'%';
+  document.getElementById('rep-conf-bar').style.width=conf+'%';
+  document.getElementById('rep-conf-status').textContent=getConfStatus(conf,allDays.length);
+  const desDays=[...st.desamparoHistory,{result:st.desamparo}].filter(d=>d.result);
+  const desConf=desDays.length>0?Math.round((desDays.filter(d=>d.result==='consegui').length/desDays.length)*100):0;
+  document.getElementById('rep-des').textContent=desDays.length>0?desConf+'%':'–';
+  document.getElementById('rep-des-bar').style.width=desConf+'%';
+  document.getElementById('rep-des-status').textContent=desDays.length>0?`${desDays.filter(d=>d.result==='consegui').length} de ${desDays.length} dias com tolerância registrada`:'Sem registros ainda';
+}
+
 function toggleCrisis(){
   const p=document.getElementById('crisis-panel');p.classList.toggle('open');
   document.getElementById('crisis-done').style.display='none';
@@ -275,6 +583,7 @@ function doneCrisis(){
   document.querySelectorAll('.crisis-opt').forEach(b=>b.style.display='none');
   document.getElementById('crisis-done').style.display='block';
 }
+
 load();init();
 </script>
 </body>
