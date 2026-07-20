@@ -140,6 +140,47 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
 .crisis-opt:hover { background: var(--bg4); color: var(--text); border-color: var(--border2); }
 .crisis-done { font-size: 13px; color: var(--green); padding: 8px 0; display: none; line-height: 1.6; font-weight: 500; }
 
+/* SOS */
+.sos-fab { position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 100; padding: 12px 28px; background: linear-gradient(135deg, #C0392B 0%, #E24B4A 100%); border: none; border-radius: 99px; font-size: 14px; font-weight: 800; color: #fff; cursor: pointer; font-family: var(--font); letter-spacing: 0.12em; box-shadow: 0 4px 24px rgba(226,75,74,0.45); transition: transform 0.2s, box-shadow 0.2s; }
+.sos-fab:hover { transform: translateX(-50%) scale(1.04); box-shadow: 0 6px 28px rgba(226,75,74,0.55); }
+.sos-overlay { position: fixed; inset: 0; z-index: 200; background: var(--bg); display: none; flex-direction: column; overflow: hidden; }
+.sos-overlay.open { display: flex; }
+.sos-header { padding: 1.25rem; background: linear-gradient(180deg, rgba(226,75,74,0.12) 0%, transparent 100%); border-bottom: 1px solid rgba(226,75,74,0.2); flex-shrink: 0; }
+.sos-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.sos-title { font-size: 18px; font-weight: 800; color: #E24B4A; letter-spacing: 0.08em; }
+.sos-close { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg3); color: var(--text2); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: var(--font); transition: all 0.2s; }
+.sos-close:hover { border-color: var(--border2); color: var(--text); }
+.sos-intro { font-size: 13px; color: var(--text2); line-height: 1.7; }
+.sos-intro strong { color: var(--text); font-weight: 600; }
+.sos-body { flex: 1; overflow-y: auto; padding: 1rem 1.25rem 2rem; max-width: 420px; margin: 0 auto; width: 100%; }
+.sos-section { margin-bottom: 1.25rem; }
+.sos-section-title { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+.sos-alerts { background: rgba(226,75,74,0.06); border: 1px solid rgba(226,75,74,0.15); border-radius: var(--radius-sm); padding: 12px 14px; }
+.sos-alert-group { margin-bottom: 10px; }
+.sos-alert-group:last-child { margin-bottom: 0; }
+.sos-alert-label { font-size: 10px; font-weight: 700; color: #E24B4A; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.sos-alert-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.sos-actions { display: flex; flex-direction: column; gap: 8px; }
+.sos-action { padding: 14px 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; color: var(--text); cursor: pointer; text-align: left; font-family: var(--font); font-weight: 500; transition: all 0.2s; display: flex; align-items: center; gap: 12px; line-height: 1.4; }
+.sos-action:hover { background: var(--bg3); border-color: var(--green); }
+.sos-action.sel { background: rgba(155,114,176,0.12); border-color: var(--green); color: var(--green-pale); }
+.sos-action-icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
+.sos-contacts { display: flex; flex-direction: column; gap: 8px; }
+.sos-contact { padding: 12px 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; color: var(--text2); text-decoration: none; display: flex; justify-content: space-between; align-items: center; font-family: var(--font); transition: all 0.2s; }
+.sos-contact:hover { border-color: var(--green); color: var(--text); }
+.sos-contact-num { font-size: 12px; font-weight: 700; color: var(--green); }
+.sos-contact.static { cursor: default; }
+.sos-done { display: none; margin-top: 1rem; padding: 1.25rem; background: rgba(155,114,176,0.1); border: 1px solid rgba(155,114,176,0.25); border-radius: var(--radius-sm); text-align: center; }
+.sos-done.show { display: block; }
+.sos-done-title { font-size: 14px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+.sos-done-text { font-size: 13px; color: var(--text2); line-height: 1.7; }
+.sos-done-action { font-size: 13px; color: var(--green-pale); font-weight: 600; margin-top: 8px; }
+.sos-card { width: 100%; display: flex; align-items: center; gap: 12px; padding: 14px 16px; margin-bottom: 1rem; background: linear-gradient(135deg, rgba(226,75,74,0.1) 0%, rgba(226,75,74,0.04) 100%); border: 1px solid rgba(226,75,74,0.25); border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font); text-align: left; transition: all 0.2s; }
+.sos-card:hover { border-color: rgba(226,75,74,0.45); background: linear-gradient(135deg, rgba(226,75,74,0.15) 0%, rgba(226,75,74,0.06) 100%); }
+.sos-card-badge { font-size: 11px; font-weight: 800; color: #fff; background: #E24B4A; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.1em; flex-shrink: 0; }
+.sos-card-text { flex: 1; font-size: 13px; color: var(--text); font-weight: 600; line-height: 1.4; }
+.sos-card-arrow { font-size: 16px; color: #E24B4A; flex-shrink: 0; }
+
 /* DESAMPARO */
 .desamparo-block { background: var(--bg2); border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 10px; padding: 1.1rem 1.25rem; }
 .desamparo-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
@@ -211,6 +252,11 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
       <div class="bar-track"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
       <div class="conf-status" id="conf-status">Sem dados ainda — complete o primeiro dia</div>
     </div>
+    <button class="sos-card fade-in" onclick="openSOS()">
+      <span class="sos-card-badge">SOS</span>
+      <span class="sos-card-text">Percebi pensamentos gatilho — preciso agir agora</span>
+      <span class="sos-card-arrow">→</span>
+    </button>
     <div class="section fade-in">
       <div class="section-header"><span class="section-title">Carreira</span><span class="section-pts" id="pts-carreira">0 / 30 pts</span></div>
       <div class="checklist">
@@ -356,6 +402,75 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
     <p>Meu sucesso vem do acúmulo dos dias em que eu venço a resistência, a insegurança, a procrastinação, a ansiedade. Se lembre: eu não tenho filhos, não estou incapacitada, consigo ir e vir, tenho comida, tenho casa, tenho conhecimento, ambição e disposição para lutar. Então lute. Continue. Não se esqueça disso. As coisas estão girando ao meu favor e quando não girarem, eu vou fazer assim mesmo. Eu sou capaz sim.</p>
   </div>
 
+</div>
+
+<button class="sos-fab" onclick="openSOS()" aria-label="Abrir SOS — Plano de Segurança">SOS</button>
+
+<div class="sos-overlay" id="sos-overlay" role="dialog" aria-labelledby="sos-title">
+  <div class="sos-header">
+    <div class="sos-header-top">
+      <div class="sos-title" id="sos-title">SOS</div>
+      <button class="sos-close" onclick="closeSOS()" aria-label="Fechar">✕</button>
+    </div>
+    <p class="sos-intro">Você percebeu os <strong>pensamentos gatilho</strong>. Isso é o momento de agir — <strong>escolha uma opção abaixo</strong> para redirecionar sua atenção e não entrar na crise de sofrimento.</p>
+  </div>
+  <div class="sos-body">
+    <div class="sos-section">
+      <div class="sos-section-title">Sinais de alerta</div>
+      <div class="sos-alerts">
+        <div class="sos-alert-group">
+          <div class="sos-alert-label">Pensamentos</div>
+          <div class="sos-alert-text">Situações vivenciadas no relacionamento · Pensamentos sobre o futuro</div>
+        </div>
+        <div class="sos-alert-group">
+          <div class="sos-alert-label">Lembranças</div>
+          <div class="sos-alert-text">Situações onde você se sente incapaz · Quando observa não proatividade do parceiro</div>
+        </div>
+        <div class="sos-alert-group">
+          <div class="sos-alert-label">Emoções</div>
+          <div class="sos-alert-text">Angústia · Aperto no peito · Vontade de chorar</div>
+        </div>
+        <div class="sos-alert-group">
+          <div class="sos-alert-label">Comportamentos</div>
+          <div class="sos-alert-text">Choro compulsivo · Ruminação de pensamentos · Paralisada</div>
+        </div>
+      </div>
+    </div>
+    <div class="sos-section">
+      <div class="sos-section-title">Autogerenciamento — escolha uma ação</div>
+      <div class="sos-actions" id="sos-actions">
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🐾</span>Brincar com a Meg</button>
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🚿</span>Tomar um banho</button>
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">📞</span>Ligar para alguém</button>
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🧊</span>Gelo na mão</button>
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🌬️</span>Controlar a respiração</button>
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🛋️</span>Bater na almofada</button>
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🎵</span>Escutar música</button>
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">📺</span>Assistir série</button>
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">💧</span>Colocar os pulsos na água gelada</button>
+      </div>
+      <div class="sos-done" id="sos-done">
+        <div class="sos-done-title">Você escolheu agir. Isso é o plano funcionando.</div>
+        <div class="sos-done-text">Você percebeu o gatilho e redirecionou sua atenção antes da crise. Fique com essa ação agora — sem julgar, sem ruminar.</div>
+        <div class="sos-done-action" id="sos-done-action"></div>
+      </div>
+    </div>
+    <div class="sos-section">
+      <div class="sos-section-title">Rede de apoio</div>
+      <div class="sos-contacts">
+        <div class="sos-contact static"><span>Ligar para o irmão</span></div>
+      </div>
+    </div>
+    <div class="sos-section">
+      <div class="sos-section-title">Se precisar de mais apoio</div>
+      <div class="sos-contacts">
+        <a class="sos-contact" href="tel:+5521974405339"><span>Psicóloga</span><span class="sos-contact-num">(21) 97440-5339</span></a>
+        <a class="sos-contact" href="tel:188"><span>CVV — Centro de Valorização da Vida</span><span class="sos-contact-num">188</span></a>
+        <a class="sos-contact" href="tel:192"><span>SAMU</span><span class="sos-contact-num">192</span></a>
+        <div class="sos-contact static"><span>Ir ao pronto-socorro</span></div>
+      </div>
+    </div>
+  </div>
 </div>
 <script>
 const SK='cj_v4';
@@ -571,6 +686,32 @@ function toggleCrisis(){
 function doneCrisis(){
   document.querySelectorAll('.crisis-opt').forEach(b=>b.style.display='none');
   document.getElementById('crisis-done').style.display='block';
+}
+
+function openSOS(){
+  document.getElementById('sos-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  resetSOS();
+}
+function closeSOS(){
+  document.getElementById('sos-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function resetSOS(){
+  document.querySelectorAll('.sos-action').forEach(b=>{b.classList.remove('sel');b.style.display='flex';});
+  document.getElementById('sos-done').classList.remove('show');
+  document.getElementById('sos-done-action').textContent='';
+}
+function selectSOS(btn){
+  const action=btn.textContent.trim();
+  document.querySelectorAll('.sos-action').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  document.getElementById('sos-done-action').textContent='Ação escolhida: '+action;
+  document.getElementById('sos-done').classList.add('show');
+  st.sosUses=(st.sosUses||0)+1;
+  st.sosLast={action,date:todayStr()};
+  save();
+  btn.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 load();init();
