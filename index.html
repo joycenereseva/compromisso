@@ -141,8 +141,6 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
 .crisis-done { font-size: 13px; color: var(--green); padding: 8px 0; display: none; line-height: 1.6; font-weight: 500; }
 
 /* SOS */
-.sos-fab { position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 100; padding: 12px 28px; background: linear-gradient(135deg, #C0392B 0%, #E24B4A 100%); border: none; border-radius: 99px; font-size: 14px; font-weight: 800; color: #fff; cursor: pointer; font-family: var(--font); letter-spacing: 0.12em; box-shadow: 0 4px 24px rgba(226,75,74,0.45); transition: transform 0.2s, box-shadow 0.2s; }
-.sos-fab:hover { transform: translateX(-50%) scale(1.04); box-shadow: 0 6px 28px rgba(226,75,74,0.55); }
 .sos-overlay { position: fixed; inset: 0; z-index: 200; background: var(--bg); display: none; flex-direction: column; overflow: hidden; }
 .sos-overlay.open { display: flex; }
 .sos-header { padding: 1.25rem; background: linear-gradient(180deg, rgba(226,75,74,0.12) 0%, transparent 100%); border-bottom: 1px solid rgba(226,75,74,0.2); flex-shrink: 0; }
@@ -252,11 +250,6 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
       <div class="bar-track"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
       <div class="conf-status" id="conf-status">Sem dados ainda — complete o primeiro dia</div>
     </div>
-    <button class="sos-card fade-in" onclick="openSOS()">
-      <span class="sos-card-badge">SOS</span>
-      <span class="sos-card-text">Percebi pensamentos gatilho — preciso agir agora</span>
-      <span class="sos-card-arrow">→</span>
-    </button>
     <div class="section fade-in">
       <div class="section-header"><span class="section-title">Carreira</span><span class="section-pts" id="pts-carreira">0 / 30 pts</span></div>
       <div class="checklist">
@@ -343,6 +336,11 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
       </div>
       <div class="crisis-done" id="crisis-done">Você acabou de fortalecer sua confiança mais do que fortalecê-la pensando sobre ela.</div>
     </div>
+    <button class="sos-card fade-in" onclick="openSOS()">
+      <span class="sos-card-badge">SOS</span>
+      <span class="sos-card-text">Percebi pensamentos gatilho — preciso agir agora</span>
+      <span class="sos-card-arrow">→</span>
+    </button>
   </div>
 
   <!-- TAB DESAMPARO -->
@@ -404,8 +402,6 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
 
 </div>
 
-<button class="sos-fab" onclick="openSOS()" aria-label="Abrir SOS — Plano de Segurança">SOS</button>
-
 <div class="sos-overlay" id="sos-overlay" role="dialog" aria-labelledby="sos-title">
   <div class="sos-header">
     <div class="sos-header-top">
@@ -424,7 +420,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
         </div>
         <div class="sos-alert-group">
           <div class="sos-alert-label">Lembranças</div>
-          <div class="sos-alert-text">Situações onde você se sente incapaz · Quando observa não proatividade do parceiro</div>
+          <div class="sos-alert-text">Situações onde você se sente incapaz · Falta de postura do parceiro · Sensação de instabilidade</div>
         </div>
         <div class="sos-alert-group">
           <div class="sos-alert-label">Emoções</div>
@@ -432,7 +428,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
         </div>
         <div class="sos-alert-group">
           <div class="sos-alert-label">Comportamentos</div>
-          <div class="sos-alert-text">Choro compulsivo · Ruminação de pensamentos · Paralisada</div>
+          <div class="sos-alert-text">Choro compulsivo · Ruminação de pensamentos · Paralisia</div>
         </div>
       </div>
     </div>
@@ -458,7 +454,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
     <div class="sos-section">
       <div class="sos-section-title">Rede de apoio</div>
       <div class="sos-contacts">
-        <div class="sos-contact static"><span>Ligar para o irmão</span></div>
+        <div class="sos-contact static"><span>Ligar para irmão ou Miga</span></div>
       </div>
     </div>
     <div class="sos-section">
