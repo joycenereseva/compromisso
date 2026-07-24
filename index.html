@@ -86,6 +86,10 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
 .expansion-toggle.open .expansion-arrow { transform: rotate(180deg); }
 .expansion-content { display: none; }
 .expansion-content.open { display: block; }
+.prod-card { background: var(--bg2); border-radius: var(--radius-sm); border: 1px solid var(--border); padding: 1rem 1.25rem; margin-bottom: 10px; }
+.prod-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.prod-value { font-size: 28px; font-weight: 800; color: var(--text); letter-spacing: -1px; margin: 4px 0; }
+.prod-sub { font-size: 11px; color: var(--text3); line-height: 1.5; }
 
 /* SECTIONS */
 .section { background: var(--bg2); border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
@@ -272,7 +276,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
   <!-- TAB HOJE -->
   <div class="tab-content active" id="tab-hoje">
     <div class="stats-grid fade-in">
-      <div class="stat-card"><div class="stat-label">Expansão hoje</div><div class="stat-value" id="pts-today">0</div><div class="stat-sub">bônus · até 110 pts</div></div>
+      <div class="stat-card"><div class="stat-label">Vitórias hoje</div><div class="stat-value" id="minimo-stat">0</div><div class="stat-sub">de 3 mínimas</div></div>
       <div class="stat-card"><div class="stat-label">Sequência</div><div class="stat-value" id="streak-val">0</div><div class="stat-sub">dias com 3 vitórias</div></div>
     </div>
     <div class="minimo-block fade-in">
@@ -309,16 +313,25 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
     <div class="conf-card fade-in">
       <div class="conf-row"><span class="conf-label">Índice de confiança</span><span class="conf-pct" id="conf-pct">–</span></div>
       <div class="bar-track"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
-      <div class="conf-status" id="conf-status">Sem dados ainda — complete suas 3 vitórias</div>
+      <div class="conf-status" id="conf-status">Cofrinho de autoconfiança: % de dias com 3 vitórias cumpridas</div>
     </div>
     <button type="button" class="expansion-toggle fade-in" id="expansion-toggle" onclick="toggleExpansion()">
       <span class="expansion-toggle-text">
         <span class="expansion-title">Expansão do dia</span>
-        <span class="expansion-sub">Carreira, saúde, estudos e vida pessoal — opcional</span>
+        <span class="expansion-sub">Carreira, saúde, estudos e vida pessoal. Opcional.</span>
       </span>
       <span class="expansion-arrow">▼</span>
     </button>
     <div class="expansion-content" id="expansion-content">
+    <div class="prod-card fade-in">
+      <div class="conf-row"><span class="prod-label">Modo expansão hoje</span><span class="conf-pct" id="pts-today">0</span></div>
+      <div class="prod-sub" id="pts-today-sub">de 110 pts · mede volume, não confiança</div>
+    </div>
+    <div class="prod-card fade-in">
+      <div class="prod-label">Nível de produção</div>
+      <div class="prod-value" id="prod-avg">–</div>
+      <div class="prod-sub" id="prod-status">Média dos últimos 30 dias na expansão</div>
+    </div>
     <div class="section fade-in">
       <div class="section-header"><span class="section-title">Carreira</span><span class="section-pts" id="pts-carreira">0 / 30 pts</span></div>
       <div class="checklist">
@@ -385,10 +398,6 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
       </div>
       <div class="evit-done" id="evit-done">Você acabou de fortalecer sua confiança mais do que fortalecê-la pensando sobre ela.</div>
     </div>
-    <div class="score-display fade-in">
-      <div><span class="score-big" id="score-final">0</span><span class="score-max"> / 110</span></div>
-      <div class="score-msg" id="score-msg">Comece pelas 3 vitórias mínimas — elas sustentam sua sequência.</div>
-    </div>
     <div class="victory-section fade-in">
       <div class="victory-title">Provas de que estou evoluindo</div>
       <textarea class="victory-input" id="victory-input" placeholder="Qual foi sua principal vitória hoje?"></textarea>
@@ -446,7 +455,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
   <!-- TAB RELATÓRIO -->
   <div class="tab-content" id="tab-relatorio">
     <div class="chart-block fade-in">
-      <div class="chart-title"><span>Pontuação — este mês</span><span class="chart-month" id="chart-month2"></span></div>
+      <div class="chart-title"><span>Modo expansão — este mês</span><span class="chart-month" id="chart-month2"></span></div>
       <div class="chart-bars" id="chart-bars2"></div>
       <div class="chart-legend">
         <div class="chart-leg"><div class="chart-leg-dot" style="background:var(--green)"></div>Excelente (90+)</div>
@@ -456,9 +465,14 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
       <div class="chart-summary" id="report-summary"></div>
     </div>
     <div class="conf-card fade-in">
-      <div class="conf-row"><span class="conf-label">Índice de confiança — 3 vitórias</span><span class="conf-pct" id="rep-conf">–</span></div>
+      <div class="conf-row"><span class="conf-label">Índice de confiança</span><span class="conf-pct" id="rep-conf">–</span></div>
       <div class="bar-track"><div class="bar-fill" id="rep-conf-bar" style="width:0%"></div></div>
-      <div class="conf-status" id="rep-conf-status"></div>
+      <div class="conf-status" id="rep-conf-status">Promessa cumprida: dias com 3 vitórias ÷ dias registrados</div>
+    </div>
+    <div class="conf-card fade-in">
+      <div class="conf-row"><span class="conf-label">Nível de produção</span><span class="conf-pct" id="rep-prod">–</span></div>
+      <div class="bar-track"><div class="bar-fill" id="rep-prod-bar" style="width:0%"></div></div>
+      <div class="conf-status" id="rep-prod-status">Média mensal de pontos na expansão (não é confiança)</div>
     </div>
     <div class="conf-card fade-in">
       <div class="conf-row"><span class="conf-label">Tolerância ao desamparo</span><span class="conf-pct" id="rep-des">–</span></div>
@@ -566,6 +580,28 @@ function isMental(){return getCheck('li')||getCheck('c1');}
 function isEspiritual(){return getCheck('espiritual');}
 function minimoCount(){return(isFisica()?1:0)+(isMental()?1:0)+(isEspiritual()?1:0);}
 function minimoComplete(){return minimoCount()===3;}
+function getMinimoWindow(){
+  const days=[...(st.minimoHistory||[])];
+  days.push({date:todayStr(),complete:minimoComplete()});
+  return days.slice(-30);
+}
+function calcConfianca(){
+  const days=getMinimoWindow();
+  if(!days.length)return{pct:0,ok:0,total:0};
+  const ok=days.filter(d=>d.complete).length;
+  return{pct:Math.round(ok/days.length*100),ok,total:days.length};
+}
+function getExpansionWindow(){
+  const days=[...(st.history||[])];
+  days.push({date:todayStr(),pts:totalPts()});
+  return days.slice(-30);
+}
+function calcProducao(){
+  const days=getExpansionWindow();
+  if(!days.length)return{avg:0,total:0};
+  const sum=days.reduce((a,d)=>a+(d.pts||0),0);
+  return{avg:Math.round(sum/days.length),total:days.length};
+}
 function recalcPts(){
   st.pts={carreira:0,saude:0,estudos:0,pessoal:0};
   document.querySelectorAll('input[data-id][data-area]').forEach(cb=>{
@@ -702,38 +738,42 @@ function updatePts(cb){setCheck(cb.dataset.id,cb.checked);}
 
 function renderAll(){
   const total=totalPts();
-  document.getElementById('pts-today').textContent=total;
-  document.getElementById('score-final').textContent=total;
+  const minimo=minimoCount();
+  const confData=calcConfianca();
+  const prodData=calcProducao();
+  const ptsEl=document.getElementById('pts-today');
+  if(ptsEl)ptsEl.textContent=total+' /110';
+  const minStat=document.getElementById('minimo-stat');
+  if(minStat)minStat.textContent=minimo;
   document.getElementById('streak-val').textContent=st.streak||0;
   ['carreira','saude','pessoal'].forEach(a=>{document.getElementById('pts-'+a).textContent=(st.pts[a]||0)+' / 30 pts';});
   document.getElementById('pts-estudos').textContent=(st.pts['estudos']||0)+' / 20 pts';
-  document.getElementById('score-msg').textContent=getMsg(total);
-  const allMinimo=[...(st.minimoHistory||[]).map(h=>h.complete),minimoComplete()];
-  const conf=allMinimo.length>0?Math.round((allMinimo.filter(Boolean).length/allMinimo.length)*100):0;
-  document.getElementById('conf-pct').textContent=allMinimo.length>0?conf+'%':'–';
-  document.getElementById('conf-bar').style.width=conf+'%';
-  document.getElementById('conf-status').textContent=getConfStatus(conf,allMinimo.length);
-  document.getElementById('level-badge').textContent=getLevel(st.streak||0,conf);
+  document.getElementById('conf-pct').textContent=confData.total>0?confData.pct+'%':'–';
+  document.getElementById('conf-bar').style.width=confData.pct+'%';
+  document.getElementById('conf-status').textContent=getConfStatus(confData.pct,confData.ok,confData.total);
+  const prodAvg=document.getElementById('prod-avg');
+  const prodStatus=document.getElementById('prod-status');
+  if(prodAvg)prodAvg.textContent=prodData.total>0?prodData.avg:'–';
+  if(prodStatus)prodStatus.textContent=prodData.total>0?`Média de ${prodData.avg} pts nos últimos ${prodData.total} dias`:'Média dos últimos 30 dias na expansão';
+  document.getElementById('level-badge').textContent=getLevel(st.streak||0,confData.pct);
   syncMinimoUI();
   renderVictories();renderDesamparoVic();
 }
 
-function getMsg(p){
-  const m=minimoCount();
-  if(m===3){
-    if(p>=90)return'Dia mínimo cumprido — e você expandiu com excelência. Bônus de alta capacidade.';
-    if(p>=40)return'Dia mínimo cumprido. A expansão de hoje é bônus — você já venceu o essencial.';
-    return'Você cumpriu suas 3 vitórias hoje. Isso é vitória completa. O resto é opcional.';
-  }
-  if(m>0)return m+' de 3 vitórias — falta pouco para o dia contar na sequência.';
-  return'Comece pelas 3 vitórias mínimas — elas sustentam sua sequência.';
+function getConfStatus(pct,ok,total){
+  if(total===0)return'Sem dados ainda. Complete suas 3 vitórias para começar o cofrinho.';
+  const base=`${ok} de ${total} dias com 3 vitórias (últimos 30)`;
+  if(pct>=90)return base+'. Você cumpre a palavra que dá a si mesma.';
+  if(pct>=70)return base+'. Confiança em construção, continue.';
+  if(pct>=50)return base+'. Observe o que está dificultando o mínimo.';
+  return base+'. Volte para as 3 vitórias, uma por vez.';
 }
-function getConfStatus(pct,days){
-  if(days===0)return'Sem dados ainda — complete suas 3 vitórias';
-  if(pct>=90)return'Confiança forte — você cumpre o mínimo que promete a si mesma';
-  if(pct>=70)return'Confiança em construção — continue com as 3 vitórias';
-  if(pct>=50)return'Atenção — observe o que está dificultando o mínimo';
-  return'Reconstrução — volte para as 3 vitórias, uma por vez';
+function getProdStatus(avg){
+  if(avg>=90)return'Expansão excelente. Volume alto, sem confundir com confiança.';
+  if(avg>=70)return'Boa produção na expansão.';
+  if(avg>=40)return'Expansão moderada. O mínimo já pode ter sido vitória.';
+  if(avg>0)return'Expansão baixa hoje. Tudo bem se o mínimo foi cumprido.';
+  return'Sem pontos de expansão registrados ainda.';
 }
 function getLevel(streak,conf){
   if(conf>=80&&streak>=14)return'Nível 5 — Protagonista';
@@ -828,12 +868,15 @@ function renderReport(){
     if(pts!==null){total++;if(pts>=90){cls='achieved';h=80;color='var(--green)';excellent++;}else if(pts>=70){cls='achieved';h=60;color='#EF9F27';good++;}else if(pts>=40){cls='achieved';h=40;color='#D85A30';reg++;}else{cls='missed';h=20;color='#E24B4A';}}
     bars.innerHTML+=`<div class="chart-bar-wrap"><div class="chart-bar ${cls}" style="height:${h}px;background:${color}"></div><div class="chart-day">${d}</div></div>`;
   }
-  document.getElementById('report-summary').textContent=total>0?`${excellent} dias excelentes, ${good} bons, ${reg} regulares este mês (expansão).`:'Nenhum registro ainda.';
-  const allMinimo=[...(st.minimoHistory||[]).map(h=>h.complete),minimoComplete()];
-  const conf=allMinimo.length>0?Math.round((allMinimo.filter(Boolean).length/allMinimo.length)*100):0;
-  document.getElementById('rep-conf').textContent=conf+'%';
-  document.getElementById('rep-conf-bar').style.width=conf+'%';
-  document.getElementById('rep-conf-status').textContent=getConfStatus(conf,allMinimo.length);
+  document.getElementById('report-summary').textContent=total>0?`${excellent} dias excelentes, ${good} bons, ${reg} regulares na expansão.`:'Nenhum registro na expansão ainda.';
+  const confData=calcConfianca();
+  const prodData=calcProducao();
+  document.getElementById('rep-conf').textContent=confData.total>0?confData.pct+'%':'–';
+  document.getElementById('rep-conf-bar').style.width=confData.pct+'%';
+  document.getElementById('rep-conf-status').textContent=getConfStatus(confData.pct,confData.ok,confData.total);
+  document.getElementById('rep-prod').textContent=prodData.total>0?prodData.avg+' pts':'–';
+  document.getElementById('rep-prod-bar').style.width=prodData.total>0?Math.round(prodData.avg/110*100)+'%':'0%';
+  document.getElementById('rep-prod-status').textContent=prodData.total>0?`Média de ${prodData.avg} pts em ${prodData.total} dias. `+getProdStatus(prodData.avg):'Média mensal de pontos na expansão (não é confiança)';
   const desDays=[...st.desamparoHistory,{result:st.desamparo}].filter(d=>d.result);
   const desConf=desDays.length>0?Math.round((desDays.filter(d=>d.result==='consegui').length/desDays.length)*100):0;
   document.getElementById('rep-des').textContent=desDays.length>0?desConf+'%':'–';
