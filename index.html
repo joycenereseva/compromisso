@@ -57,6 +57,36 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
 .bar-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.8s ease; }
 .conf-status { font-size: 11px; color: var(--text3); margin-top: 6px; }
 
+/* MÍNIMO — 3 VITÓRIAS */
+.minimo-block { background: linear-gradient(135deg, rgba(155,114,176,0.14) 0%, rgba(155,114,176,0.04) 100%); border-radius: var(--radius-sm); border: 1px solid rgba(155,114,176,0.35); margin-bottom: 1rem; padding: 1.1rem 1.25rem; }
+.minimo-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.minimo-title { font-size: 12px; font-weight: 800; color: var(--text); text-transform: uppercase; letter-spacing: 0.1em; }
+.minimo-badge { font-size: 13px; font-weight: 800; color: var(--green); background: rgba(155,114,176,0.15); padding: 4px 12px; border-radius: 99px; border: 1px solid rgba(155,114,176,0.3); }
+.minimo-badge.done { color: #fff; background: var(--green); border-color: var(--green); }
+.minimo-sub { font-size: 12px; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
+.minimo-list { display: flex; flex-direction: column; gap: 8px; }
+.minimo-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; }
+.minimo-item:hover { border-color: var(--green); }
+.minimo-item.checked { background: rgba(155,114,176,0.1); border-color: var(--green); }
+.minimo-item input[type=checkbox] { width: 20px; height: 20px; cursor: pointer; flex-shrink: 0; margin-top: 1px; border-radius: 50%; appearance: none; -webkit-appearance: none; background: var(--bg3); border: 2px solid var(--border2); transition: all 0.2s; }
+.minimo-item input[type=checkbox]:checked { background: var(--green); border-color: var(--green); background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.707 4.293a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0l-3-3a1 1 0 1 1 1.414-1.414L6 10.586l6.293-6.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E"); background-size: 12px; background-repeat: no-repeat; background-position: center; }
+.minimo-text { flex: 1; }
+.minimo-label { font-size: 13px; font-weight: 700; color: var(--text); display: block; line-height: 1.3; }
+.minimo-hint { font-size: 11px; color: var(--text3); margin-top: 3px; display: block; line-height: 1.4; }
+.minimo-done { display: none; margin-top: 12px; padding: 12px 14px; background: rgba(155,114,176,0.12); border: 1px solid rgba(155,114,176,0.3); border-radius: var(--radius-sm); font-size: 13px; color: var(--green-pale); font-weight: 600; line-height: 1.6; text-align: center; }
+.minimo-done.show { display: block; }
+
+/* EXPANSÃO */
+.expansion-toggle { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 13px 1.25rem; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font); margin-bottom: 10px; transition: all 0.2s; }
+.expansion-toggle:hover { border-color: var(--border2); }
+.expansion-toggle-text { text-align: left; }
+.expansion-title { font-size: 12px; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.08em; display: block; }
+.expansion-sub { font-size: 11px; color: var(--text3); margin-top: 2px; display: block; }
+.expansion-arrow { font-size: 14px; color: var(--text3); transition: transform 0.2s; flex-shrink: 0; margin-left: 12px; }
+.expansion-toggle.open .expansion-arrow { transform: rotate(180deg); }
+.expansion-content { display: none; }
+.expansion-content.open { display: block; }
+
 /* SECTIONS */
 .section { background: var(--bg2); border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
 .section:hover { border-color: var(--border2); }
@@ -242,44 +272,85 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
   <!-- TAB HOJE -->
   <div class="tab-content active" id="tab-hoje">
     <div class="stats-grid fade-in">
-      <div class="stat-card"><div class="stat-label">Pontos hoje</div><div class="stat-value" id="pts-today">0</div><div class="stat-sub">de 110</div></div>
-      <div class="stat-card"><div class="stat-label">Sequência</div><div class="stat-value" id="streak-val">0</div><div class="stat-sub">dias seguidos</div></div>
+      <div class="stat-card"><div class="stat-label">Expansão hoje</div><div class="stat-value" id="pts-today">0</div><div class="stat-sub">bônus · até 110 pts</div></div>
+      <div class="stat-card"><div class="stat-label">Sequência</div><div class="stat-value" id="streak-val">0</div><div class="stat-sub">dias com 3 vitórias</div></div>
+    </div>
+    <div class="minimo-block fade-in">
+      <div class="minimo-top">
+        <div class="minimo-title">3 Vitórias do Dia</div>
+        <div class="minimo-badge" id="minimo-badge">0/3</div>
+      </div>
+      <p class="minimo-sub">Seu piso mínimo. Com 3 de 3, o dia conta na sequência — carreira e o restante são expansão opcional.</p>
+      <div class="minimo-list">
+        <label class="minimo-item" id="min-fisica">
+          <input type="checkbox" id="chk-min-fisica" onchange="toggleMinimo('fisica',this.checked)">
+          <div class="minimo-text">
+            <span class="minimo-label">Vitória física</span>
+            <span class="minimo-hint">Treinei</span>
+          </div>
+        </label>
+        <label class="minimo-item" id="min-mental">
+          <input type="checkbox" id="chk-min-mental" onchange="toggleMinimo('mental',this.checked)">
+          <div class="minimo-text">
+            <span class="minimo-label">Vitória mental</span>
+            <span class="minimo-hint">Li algo ou estudei a pós</span>
+          </div>
+        </label>
+        <label class="minimo-item" id="min-espiritual">
+          <input type="checkbox" id="chk-min-espiritual" onchange="toggleMinimo('espiritual',this.checked)">
+          <div class="minimo-text">
+            <span class="minimo-label">Vitória espiritual</span>
+            <span class="minimo-hint">Prática de regulação — respiração, gratidão, meditação</span>
+          </div>
+        </label>
+      </div>
+      <div class="minimo-done" id="minimo-done">Você cumpriu suas 3 vitórias hoje. Dia completo — o resto é bônus.</div>
     </div>
     <div class="conf-card fade-in">
       <div class="conf-row"><span class="conf-label">Índice de confiança</span><span class="conf-pct" id="conf-pct">–</span></div>
       <div class="bar-track"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
-      <div class="conf-status" id="conf-status">Sem dados ainda — complete o primeiro dia</div>
+      <div class="conf-status" id="conf-status">Sem dados ainda — complete suas 3 vitórias</div>
     </div>
+    <button type="button" class="expansion-toggle fade-in" id="expansion-toggle" onclick="toggleExpansion()">
+      <span class="expansion-toggle-text">
+        <span class="expansion-title">Expansão do dia</span>
+        <span class="expansion-sub">Carreira, saúde, estudos e vida pessoal — opcional</span>
+      </span>
+      <span class="expansion-arrow">▼</span>
+    </button>
+    <div class="expansion-content" id="expansion-content">
     <div class="section fade-in">
       <div class="section-header"><span class="section-title">Carreira</span><span class="section-pts" id="pts-carreira">0 / 30 pts</span></div>
       <div class="checklist">
-        <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Apliquei o conhecimento de algum curso</span></div><span class="daily-pts">10 pts</span></label>
-        <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Produzi algo do meu projeto</span></div><span class="daily-pts">10 pts</span></label>
-        <label class="check-item"><input type="checkbox" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Planejei ou organizei meu trabalho</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="c1" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Apliquei o conhecimento de algum curso</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="c2" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Produzi algo do meu projeto</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="c3" data-area="carreira" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Planejei ou organizei meu trabalho</span></div><span class="daily-pts">10 pts</span></label>
       </div>
     </div>
     <div class="section fade-in">
       <div class="section-header"><span class="section-title">Saúde</span><span class="section-pts" id="pts-saude">0 / 30 pts</span></div>
       <div class="checklist">
-        <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Treinei</span></div><span class="daily-pts">10 pts</span></label>
-        <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Me alimentei adequadamente</span><span class="check-meta">Meta: 3 refeições corretas (seg–sáb)</span></div><span class="daily-pts">10 pts</span></label>
-        <label class="check-item"><input type="checkbox" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Dormi dentro da meta</span><span class="check-meta">Meta: mínimo 7h por noite</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="treinei" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Treinei</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="alimentacao" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Me alimentei adequadamente</span><span class="check-meta">Meta: 3 refeições corretas (seg–sáb)</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="sono" data-area="saude" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Dormi dentro da meta</span><span class="check-meta">Meta: mínimo 7h por noite</span></div><span class="daily-pts">10 pts</span></label>
       </div>
     </div>
     <div class="section fade-in">
       <div class="section-header"><span class="section-title">Estudos</span><span class="section-pts" id="pts-estudos">0 / 20 pts</span></div>
       <div class="checklist">
-        <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Li algo</span></div><span class="daily-pts">10 pts</span></label>
-        <label class="check-item"><input type="checkbox" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Estudei a pós-graduação</span><span class="check-meta">Meta: mínimo 2 aulas por semana</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="li" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Li algo</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="pos" data-area="estudos" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Estudei a pós-graduação</span><span class="check-meta">Meta: mínimo 2 aulas por semana</span></div><span class="daily-pts">10 pts</span></label>
       </div>
     </div>
     <div class="section fade-in">
       <div class="section-header"><span class="section-title">Vida pessoal</span><span class="section-pts" id="pts-pessoal">0 / 30 pts</span></div>
       <div class="checklist">
-        <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Organizei algo da casa</span></div><span class="daily-pts">10 pts</span></label>
-        <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Passeei com a Meg</span></div><span class="daily-pts">10 pts</span></label>
-        <label class="check-item"><input type="checkbox" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Fiz algo para mim</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="casa" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Organizei algo da casa</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="meg" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Passeei com a Meg</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="mim" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Fiz algo para mim</span></div><span class="daily-pts">10 pts</span></label>
+        <label class="check-item"><input type="checkbox" data-id="espiritual" data-area="pessoal" data-pts="0" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Fiz uma prática de regulação</span><span class="check-meta">Respiração 4-7-8, gratidão, meditação, devocional — conta na vitória espiritual</span></div></label>
       </div>
+    </div>
     </div>
     <div class="tcc-block fade-in">
       <div class="tcc-title">Temperatura emocional de hoje</div>
@@ -316,7 +387,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
     </div>
     <div class="score-display fade-in">
       <div><span class="score-big" id="score-final">0</span><span class="score-max"> / 110</span></div>
-      <div class="score-msg" id="score-msg">Complete o dia para ver sua avaliação.</div>
+      <div class="score-msg" id="score-msg">Comece pelas 3 vitórias mínimas — elas sustentam sua sequência.</div>
     </div>
     <div class="victory-section fade-in">
       <div class="victory-title">Provas de que estou evoluindo</div>
@@ -385,7 +456,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
       <div class="chart-summary" id="report-summary"></div>
     </div>
     <div class="conf-card fade-in">
-      <div class="conf-row"><span class="conf-label">Índice de confiança geral</span><span class="conf-pct" id="rep-conf">–</span></div>
+      <div class="conf-row"><span class="conf-label">Índice de confiança — 3 vitórias</span><span class="conf-pct" id="rep-conf">–</span></div>
       <div class="bar-track"><div class="bar-fill" id="rep-conf-bar" style="width:0%"></div></div>
       <div class="conf-status" id="rep-conf-status"></div>
     </div>
@@ -437,12 +508,12 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
         <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🐾</span>Brincar com a Meg</button>
         <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🚿</span>Tomar um banho</button>
         <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">📞</span>Ligar para alguém</button>
-        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🧊</span>Gelo na mão</button>
-        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🌬️</span>Controlar a respiração</button>
+        <button class="sos-action" data-regula="1" onclick="selectSOS(this)"><span class="sos-action-icon">🧊</span>Gelo na mão</button>
+        <button class="sos-action" data-regula="1" onclick="selectSOS(this)"><span class="sos-action-icon">🌬️</span>Controlar a respiração</button>
         <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🛋️</span>Bater na almofada</button>
         <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🎵</span>Escutar música</button>
         <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">📺</span>Assistir série</button>
-        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">💧</span>Colocar os pulsos na água gelada</button>
+        <button class="sos-action" data-regula="1" onclick="selectSOS(this)"><span class="sos-action-icon">💧</span>Colocar os pulsos na água gelada</button>
       </div>
       <div class="sos-done" id="sos-done">
         <div class="sos-done-title">Você escolheu agir. Isso é o plano funcionando.</div>
@@ -468,12 +539,101 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
   </div>
 </div>
 <script>
-const SK='cj_v4';
-let st={pts:{carreira:0,saude:0,estudos:0,pessoal:0},temp:null,evit:null,evitText:'',desamparo:null,desNote:'',victories:[],desamparoVic:[],history:[],desamparoHistory:[],lastDate:null,streak:0};
+const SK='cj_v5';
+const SK_OLD='cj_v4';
+let st={pts:{carreira:0,saude:0,estudos:0,pessoal:0},checks:{},temp:null,evit:null,evitText:'',desamparo:null,desNote:'',victories:[],desamparoVic:[],history:[],minimoHistory:[],desamparoHistory:[],lastDate:null,streak:0,expansionOpen:false};
 function todayStr(){return new Date().toLocaleDateString('pt-BR');}
-function load(){try{const r=localStorage.getItem(SK);if(r)st=JSON.parse(r);}catch(e){}}
+function load(){
+  try{
+    let r=localStorage.getItem(SK);
+    if(r){st=JSON.parse(r);}
+    else{
+      r=localStorage.getItem(SK_OLD);
+      if(r){
+        const old=JSON.parse(r);
+        st={...st,...old,checks:{},minimoHistory:[],expansionOpen:false};
+      }
+    }
+    if(!st.checks)st.checks={};
+    if(!st.minimoHistory)st.minimoHistory=[];
+  }catch(e){}
+}
 function save(){try{localStorage.setItem(SK,JSON.stringify(st));}catch(e){}}
 function totalPts(){return Object.values(st.pts).reduce((a,b)=>a+b,0);}
+function getCheck(id){return!!(st.checks&&st.checks[id]);}
+function isFisica(){return getCheck('treinei');}
+function isMental(){return getCheck('li')||getCheck('pos');}
+function isEspiritual(){return getCheck('espiritual');}
+function minimoCount(){return(isFisica()?1:0)+(isMental()?1:0)+(isEspiritual()?1:0);}
+function minimoComplete(){return minimoCount()===3;}
+function recalcPts(){
+  st.pts={carreira:0,saude:0,estudos:0,pessoal:0};
+  document.querySelectorAll('input[data-id][data-area]').forEach(cb=>{
+    const pts=parseInt(cb.dataset.pts||0,10);
+    if(cb.checked&&pts>0)st.pts[cb.dataset.area]=(st.pts[cb.dataset.area]||0)+pts;
+  });
+}
+function setCheck(id,checked,silent){
+  if(!st.checks)st.checks={};
+  st.checks[id]=!!checked;
+  const cb=document.querySelector(`input[data-id="${id}"]`);
+  if(cb){
+    cb.checked=!!checked;
+    const lbl=cb.closest('label')?.querySelector('.check-label');
+    if(lbl)lbl.classList.toggle('done',!!checked);
+  }
+  recalcPts();
+  syncMinimoUI();
+  save();
+  if(!silent)renderAll();
+}
+function syncMinimoUI(){
+  const n=minimoCount();
+  const badge=document.getElementById('minimo-badge');
+  const done=document.getElementById('minimo-done');
+  if(badge){
+    badge.textContent=n+'/3';
+    badge.classList.toggle('done',n===3);
+  }
+  if(done)done.classList.toggle('show',n===3);
+  const fis=document.getElementById('chk-min-fisica');
+  const men=document.getElementById('chk-min-mental');
+  const esp=document.getElementById('chk-min-espiritual');
+  if(fis){fis.checked=isFisica();document.getElementById('min-fisica')?.classList.toggle('checked',isFisica());}
+  if(men){men.checked=isMental();document.getElementById('min-mental')?.classList.toggle('checked',isMental());}
+  if(esp){esp.checked=isEspiritual();document.getElementById('min-espiritual')?.classList.toggle('checked',isEspiritual());}
+}
+function toggleMinimo(type,checked){
+  if(type==='fisica')setCheck('treinei',checked,true);
+  else if(type==='mental'){
+    if(checked){if(!isMental())setCheck('li',true,true);}
+    else{setCheck('li',false,true);setCheck('pos',false,true);}
+  }else if(type==='espiritual')setCheck('espiritual',checked,true);
+  syncMinimoUI();save();renderAll();
+}
+function markEspiritual(){
+  if(!isEspiritual()){setCheck('espiritual',true,true);syncMinimoUI();save();renderAll();}
+}
+function restoreChecks(){
+  document.querySelectorAll('input[data-id]').forEach(cb=>{
+    const checked=getCheck(cb.dataset.id);
+    cb.checked=checked;
+    const lbl=cb.closest('label')?.querySelector('.check-label');
+    if(lbl)lbl.classList.toggle('done',checked);
+  });
+  recalcPts();
+  syncMinimoUI();
+}
+function toggleExpansion(){
+  st.expansionOpen=!st.expansionOpen;
+  save();
+  applyExpansionState();
+}
+function applyExpansionState(){
+  const open=!!st.expansionOpen;
+  document.getElementById('expansion-content')?.classList.toggle('open',open);
+  document.getElementById('expansion-toggle')?.classList.toggle('open',open);
+}
 
 function showTab(name,btn){
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
@@ -490,16 +650,25 @@ function init(){
   document.getElementById('date-display').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});
   if(st.lastDate&&st.lastDate!==today){
     const y=new Date();y.setDate(y.getDate()-1);
-    st.streak=st.lastDate===y.toLocaleDateString('pt-BR')?(st.streak||0)+1:0;
-    st.history.push({date:st.lastDate,pts:totalPts(),temp:st.temp});
+    const wasYesterday=st.lastDate===y.toLocaleDateString('pt-BR');
+    const minimoOk=minimoComplete();
+    st.minimoHistory.push({date:st.lastDate,complete:minimoOk});
+    if(st.minimoHistory.length>30)st.minimoHistory=st.minimoHistory.slice(-30);
+    st.history.push({date:st.lastDate,pts:totalPts(),temp:st.temp,minimo:minimoOk});
     st.desamparoHistory.push({date:st.lastDate,result:st.desamparo,note:st.desNote});
     if(st.history.length>30)st.history=st.history.slice(-30);
     if(st.desamparoHistory.length>30)st.desamparoHistory=st.desamparoHistory.slice(-30);
+    if(wasYesterday&&minimoOk)st.streak=(st.streak||0)+1;
+    else st.streak=0;
     st.pts={carreira:0,saude:0,estudos:0,pessoal:0};
+    st.checks={};
     st.temp=null;st.evit=null;st.evitText='';st.desamparo=null;st.desNote='';st.lastDate=today;
     document.querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=false;});
+    document.querySelectorAll('.check-label').forEach(l=>l.classList.remove('done'));
     save();
   }else if(!st.lastDate){st.lastDate=today;save();}
+  restoreChecks();
+  applyExpansionState();
   if(st.temp){
     document.querySelectorAll('.temp-btn').forEach(b=>{if(b.classList.contains('t-'+st.temp))b.classList.add('sel');});
     const resp=document.getElementById('temp-resp-'+st.temp);if(resp)resp.classList.add('show');
@@ -529,13 +698,7 @@ function observeFadeIns(){
   }
 }
 
-function updatePts(cb){
-  const area=cb.dataset.area,pts=parseInt(cb.dataset.pts);
-  const lbl=cb.closest('label').querySelector('.check-label');
-  if(cb.checked){st.pts[area]=(st.pts[area]||0)+pts;lbl.classList.add('done');}
-  else{st.pts[area]=Math.max(0,(st.pts[area]||0)-pts);lbl.classList.remove('done');}
-  save();renderAll();
-}
+function updatePts(cb){setCheck(cb.dataset.id,cb.checked);}
 
 function renderAll(){
   const total=totalPts();
@@ -545,28 +708,32 @@ function renderAll(){
   ['carreira','saude','pessoal'].forEach(a=>{document.getElementById('pts-'+a).textContent=(st.pts[a]||0)+' / 30 pts';});
   document.getElementById('pts-estudos').textContent=(st.pts['estudos']||0)+' / 20 pts';
   document.getElementById('score-msg').textContent=getMsg(total);
-  const all=[...st.history.map(h=>h.pts),total];
-  const conf=all.length>0?Math.round((all.filter(p=>p>=10).length/all.length)*100):0;
-  document.getElementById('conf-pct').textContent=all.length>0?conf+'%':'–';
+  const allMinimo=[...(st.minimoHistory||[]).map(h=>h.complete),minimoComplete()];
+  const conf=allMinimo.length>0?Math.round((allMinimo.filter(Boolean).length/allMinimo.length)*100):0;
+  document.getElementById('conf-pct').textContent=allMinimo.length>0?conf+'%':'–';
   document.getElementById('conf-bar').style.width=conf+'%';
-  document.getElementById('conf-status').textContent=getConfStatus(conf,all.length);
+  document.getElementById('conf-status').textContent=getConfStatus(conf,allMinimo.length);
   document.getElementById('level-badge').textContent=getLevel(st.streak||0,conf);
+  syncMinimoUI();
   renderVictories();renderDesamparoVic();
 }
 
 function getMsg(p){
-  if(p>=90)return'Hoje você acumulou evidências. Você não venceu porque se sentiu confiante — ficou mais confiante porque agiu.';
-  if(p>=70)return'Continue. O progresso discreto costuma construir resultados duradouros.';
-  if(p>=40)return'Nem todo dia será extraordinário. Mas todo dia pode conter um pequeno avanço.';
-  if(p>0)return'Hoje não saiu como planejado. Observe os obstáculos, ajuste a rota e siga em frente.';
-  return'Complete o dia para ver sua avaliação.';
+  const m=minimoCount();
+  if(m===3){
+    if(p>=90)return'Dia mínimo cumprido — e você expandiu com excelência. Bônus de alta capacidade.';
+    if(p>=40)return'Dia mínimo cumprido. A expansão de hoje é bônus — você já venceu o essencial.';
+    return'Você cumpriu suas 3 vitórias hoje. Isso é vitória completa. O resto é opcional.';
+  }
+  if(m>0)return m+' de 3 vitórias — falta pouco para o dia contar na sequência.';
+  return'Comece pelas 3 vitórias mínimas — elas sustentam sua sequência.';
 }
 function getConfStatus(pct,days){
-  if(days===0)return'Sem dados ainda — complete o primeiro dia';
-  if(pct>=90)return'Confiança forte — você cumpre o que promete a si mesma';
-  if(pct>=70)return'Confiança em construção — continue';
-  if(pct>=50)return'Atenção — observe o que está dificultando';
-  return'Reconstrução — volte para o básico, uma ação por vez';
+  if(days===0)return'Sem dados ainda — complete suas 3 vitórias';
+  if(pct>=90)return'Confiança forte — você cumpre o mínimo que promete a si mesma';
+  if(pct>=70)return'Confiança em construção — continue com as 3 vitórias';
+  if(pct>=50)return'Atenção — observe o que está dificultando o mínimo';
+  return'Reconstrução — volte para as 3 vitórias, uma por vez';
 }
 function getLevel(streak,conf){
   if(conf>=80&&streak>=14)return'Nível 5 — Protagonista';
@@ -598,6 +765,7 @@ function saveEvit(){st.evitText=document.getElementById('evit-text').value;save(
 function doneEvitAction(btn){
   document.getElementById('evit-actions').style.display='none';
   document.getElementById('evit-done').style.display='block';
+  if(btn.textContent.includes('Respiração'))markEspiritual();
   st.victories.unshift({text:'Evitei algo, mas agi mesmo assim: '+btn.textContent,date:todayStr(),type:'evit'});
   save();renderVictories();
 }
@@ -660,12 +828,12 @@ function renderReport(){
     if(pts!==null){total++;if(pts>=90){cls='achieved';h=80;color='var(--green)';excellent++;}else if(pts>=70){cls='achieved';h=60;color='#EF9F27';good++;}else if(pts>=40){cls='achieved';h=40;color='#D85A30';reg++;}else{cls='missed';h=20;color='#E24B4A';}}
     bars.innerHTML+=`<div class="chart-bar-wrap"><div class="chart-bar ${cls}" style="height:${h}px;background:${color}"></div><div class="chart-day">${d}</div></div>`;
   }
-  document.getElementById('report-summary').textContent=total>0?`${excellent} dias excelentes, ${good} bons, ${reg} regulares este mês.`:'Nenhum registro ainda.';
-  const allDays=[...st.history.map(h=>h.pts),totalPts()];
-  const conf=allDays.length>0?Math.round((allDays.filter(p=>p>=10).length/allDays.length)*100):0;
+  document.getElementById('report-summary').textContent=total>0?`${excellent} dias excelentes, ${good} bons, ${reg} regulares este mês (expansão).`:'Nenhum registro ainda.';
+  const allMinimo=[...(st.minimoHistory||[]).map(h=>h.complete),minimoComplete()];
+  const conf=allMinimo.length>0?Math.round((allMinimo.filter(Boolean).length/allMinimo.length)*100):0;
   document.getElementById('rep-conf').textContent=conf+'%';
   document.getElementById('rep-conf-bar').style.width=conf+'%';
-  document.getElementById('rep-conf-status').textContent=getConfStatus(conf,allDays.length);
+  document.getElementById('rep-conf-status').textContent=getConfStatus(conf,allMinimo.length);
   const desDays=[...st.desamparoHistory,{result:st.desamparo}].filter(d=>d.result);
   const desConf=desDays.length>0?Math.round((desDays.filter(d=>d.result==='consegui').length/desDays.length)*100):0;
   document.getElementById('rep-des').textContent=desDays.length>0?desConf+'%':'–';
@@ -703,6 +871,7 @@ function selectSOS(btn){
   btn.classList.add('sel');
   document.getElementById('sos-done-action').textContent='Ação escolhida: '+action;
   document.getElementById('sos-done').classList.add('show');
+  if(btn.dataset.regula==='1')markEspiritual();
   st.sosUses=(st.sosUses||0)+1;
   st.sosLast={action,date:todayStr()};
   save();
