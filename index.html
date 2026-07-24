@@ -325,7 +325,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
     <div class="expansion-content" id="expansion-content">
     <div class="prod-card fade-in">
       <div class="conf-row"><span class="prod-label">Modo expansão hoje</span><span class="conf-pct" id="pts-today">0</span></div>
-      <div class="prod-sub" id="pts-today-sub">de 110 pts · mede volume, não confiança</div>
+      <div class="prod-sub" id="pts-today-sub">de 100 pts · mede volume, não confiança</div>
     </div>
     <div class="prod-card fade-in">
       <div class="prod-label">Nível de produção</div>
@@ -741,12 +741,12 @@ function renderAll(){
   const confData=calcConfianca();
   const prodData=calcProducao();
   const ptsEl=document.getElementById('pts-today');
-  if(ptsEl)ptsEl.textContent=total+' /110';
+  if(ptsEl)ptsEl.textContent=total+' /100';
   const minStat=document.getElementById('minimo-stat');
   if(minStat)minStat.textContent=minimo;
   document.getElementById('streak-val').textContent=st.streak||0;
   ['carreira','saude','pessoal'].forEach(a=>{document.getElementById('pts-'+a).textContent=(st.pts[a]||0)+' / 30 pts';});
-  document.getElementById('pts-estudos').textContent=(st.pts['estudos']||0)+' / 20 pts';
+  document.getElementById('pts-estudos').textContent=(st.pts['estudos']||0)+' / 10 pts';
   document.getElementById('conf-pct').textContent=confData.total>0?confData.pct+'%':'–';
   document.getElementById('conf-bar').style.width=confData.pct+'%';
   document.getElementById('conf-status').textContent=getConfStatus(confData.pct,confData.ok,confData.total);
@@ -874,7 +874,7 @@ function renderReport(){
   document.getElementById('rep-conf-bar').style.width=confData.pct+'%';
   document.getElementById('rep-conf-status').textContent=getConfStatus(confData.pct,confData.ok,confData.total);
   document.getElementById('rep-prod').textContent=prodData.total>0?prodData.avg+' pts':'–';
-  document.getElementById('rep-prod-bar').style.width=prodData.total>0?Math.round(prodData.avg/110*100)+'%':'0%';
+  document.getElementById('rep-prod-bar').style.width=prodData.total>0?Math.round(prodData.avg/100*100)+'%':'0%';
   document.getElementById('rep-prod-status').textContent=prodData.total>0?`Média de ${prodData.avg} pts em ${prodData.total} dias. `+getProdStatus(prodData.avg):'Média mensal de pontos na expansão (não é confiança)';
   const desDays=[...st.desamparoHistory,{result:st.desamparo}].filter(d=>d.result);
   const desConf=desDays.length>0?Math.round((desDays.filter(d=>d.result==='consegui').length/desDays.length)*100):0;
