@@ -304,7 +304,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
           <input type="checkbox" id="chk-min-espiritual" onchange="toggleMinimo('espiritual',this.checked)">
           <div class="minimo-text">
             <span class="minimo-label">Vitória espiritual</span>
-            <span class="minimo-hint">Prática e oração, regulação, gratidão, meditação</span>
+            <span class="minimo-hint">Prática de oração, regulação, gratidão, meditação</span>
           </div>
         </label>
       </div>
@@ -360,7 +360,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
         <label class="check-item"><input type="checkbox" data-id="casa" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Organizei algo da casa</span></div><span class="daily-pts">10 pts</span></label>
         <label class="check-item"><input type="checkbox" data-id="meg" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Passeei com a Meg</span></div><span class="daily-pts">10 pts</span></label>
         <label class="check-item"><input type="checkbox" data-id="mim" data-area="pessoal" data-pts="10" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Fiz algo para mim</span></div><span class="daily-pts">10 pts</span></label>
-        <label class="check-item"><input type="checkbox" data-id="espiritual" data-area="pessoal" data-pts="0" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Prática e oração, regulação</span><span class="check-meta">Respiração 4-7-8, gratidão, meditação, devocional. Conta na vitória espiritual</span></div></label>
+        <label class="check-item"><input type="checkbox" data-id="espiritual" data-area="pessoal" data-pts="0" onchange="updatePts(this)"><div class="check-text"><span class="check-label">Prática de oração</span><span class="check-meta">Regulação, respiração 4-7-8, gratidão, meditação, devocional. Conta na vitória espiritual</span></div></label>
       </div>
     </div>
     </div>
@@ -405,7 +405,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
     </div>
     <button class="crisis-btn" onclick="toggleCrisis()">Estou me sentindo insegura</button>
     <div class="crisis-panel" id="crisis-panel">
-      <div class="crisis-q">Na musculação você não foge do peso — adiciona 2kg e aguenta. O que são seus 2kg agora?</div>
+      <div class="crisis-q">Na musculação você não foge do peso. Adiciona 2kg e aguenta. O que são seus 2kg agora?</div>
       <div class="crisis-opts">
         <button class="crisis-opt" onclick="doneCrisis()">Ler 5 páginas</button>
         <button class="crisis-opt" onclick="doneCrisis()">Organizar a mesa</button>
@@ -417,7 +417,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
     </div>
     <button class="sos-card fade-in" onclick="openSOS()">
       <span class="sos-card-badge">SOS</span>
-      <span class="sos-card-text">Percebi pensamentos gatilho — preciso agir agora</span>
+      <span class="sos-card-text">Percebi pensamentos gatilho. Preciso agir agora</span>
       <span class="sos-card-arrow">→</span>
     </button>
   </div>
@@ -491,7 +491,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
       <div class="sos-title" id="sos-title">SOS</div>
       <button class="sos-close" onclick="closeSOS()" aria-label="Fechar">✕</button>
     </div>
-    <p class="sos-intro">Você percebeu os <strong>pensamentos gatilho</strong>. Isso é o momento de agir — <strong>escolha uma opção abaixo</strong> para redirecionar sua atenção e não entrar na crise de sofrimento.</p>
+    <p class="sos-intro">Você percebeu os <strong>pensamentos gatilho</strong>. Isso é o momento de agir. <strong>Escolha uma opção abaixo</strong> para redirecionar sua atenção e não entrar na crise de sofrimento.</p>
   </div>
   <div class="sos-body">
     <div class="sos-section">
@@ -499,27 +499,29 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
       <div class="sos-alerts">
         <div class="sos-alert-group">
           <div class="sos-alert-label">Pensamentos</div>
-          <div class="sos-alert-text">Situações vivenciadas no relacionamento · Pensamentos sobre o futuro</div>
+          <div class="sos-alert-text">Situações vivenciadas no relacionamento, pensamentos sobre o futuro</div>
         </div>
         <div class="sos-alert-group">
           <div class="sos-alert-label">Lembranças</div>
-          <div class="sos-alert-text">Situações onde você se sente incapaz · Falta de postura do parceiro · Sensação de instabilidade</div>
+          <div class="sos-alert-text">Situações onde você se sente incapaz, falta de postura do parceiro, sensação de instabilidade</div>
         </div>
         <div class="sos-alert-group">
           <div class="sos-alert-label">Emoções</div>
-          <div class="sos-alert-text">Angústia · Aperto no peito · Vontade de chorar</div>
+          <div class="sos-alert-text">Angústia, aperto no peito, vontade de chorar</div>
         </div>
         <div class="sos-alert-group">
           <div class="sos-alert-label">Comportamentos</div>
-          <div class="sos-alert-text">Choro compulsivo · Ruminação de pensamentos · Paralisia</div>
+          <div class="sos-alert-text">Choro compulsivo, ruminação de pensamentos, paralisia</div>
         </div>
       </div>
     </div>
     <div class="sos-section">
-      <div class="sos-section-title">Autogerenciamento — escolha uma ação</div>
+      <div class="sos-section-title">Autogerenciamento: escolha uma ação</div>
       <div class="sos-actions" id="sos-actions">
         <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🐾</span>Brincar com a Meg</button>
         <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🚿</span>Tomar um banho</button>
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🏊</span>Nadar</button>
+        <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">🏍️</span>Sair de moto</button>
         <button class="sos-action" onclick="selectSOS(this)"><span class="sos-action-icon">📞</span>Ligar para alguém</button>
         <button class="sos-action" data-regula="1" onclick="selectSOS(this)"><span class="sos-action-icon">🧊</span>Gelo na mão</button>
         <button class="sos-action" data-regula="1" onclick="selectSOS(this)"><span class="sos-action-icon">🌬️</span>Controlar a respiração</button>
@@ -530,7 +532,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
       </div>
       <div class="sos-done" id="sos-done">
         <div class="sos-done-title">Você escolheu agir. Isso é o plano funcionando.</div>
-        <div class="sos-done-text">Você percebeu o gatilho e redirecionou sua atenção antes da crise. Fique com essa ação agora — sem julgar, sem ruminar.</div>
+        <div class="sos-done-text">Você percebeu o gatilho e redirecionou sua atenção antes da crise. Fique com essa ação agora, sem julgar, sem ruminar.</div>
         <div class="sos-done-action" id="sos-done-action"></div>
       </div>
     </div>
@@ -544,7 +546,7 @@ body { background: var(--bg); font-family: var(--font); color: var(--text); min-
       <div class="sos-section-title">Se precisar de mais apoio</div>
       <div class="sos-contacts">
         <a class="sos-contact" href="tel:+5521974405339"><span>Psicóloga</span><span class="sos-contact-num">(21) 97440-5339</span></a>
-        <a class="sos-contact" href="tel:188"><span>CVV — Centro de Valorização da Vida</span><span class="sos-contact-num">188</span></a>
+        <a class="sos-contact" href="tel:188"><span>CVV, Centro de Valorização da Vida</span><span class="sos-contact-num">188</span></a>
         <a class="sos-contact" href="tel:192"><span>SAMU</span><span class="sos-contact-num">192</span></a>
         <div class="sos-contact static"><span>Ir ao pronto-socorro</span></div>
       </div>
